@@ -1,8 +1,8 @@
-# **Market Basket Analysis using<br>Apriori . ECLAT . FP-Growth Algorithms**
+![image](https://github.com/andytoh78/MarketBasketAnalysis/assets/139482827/84b6080b-9026-43a0-9477-67f91d4ffa2f)
+
 ---
-
-Market Basket Analysis (MBA) is a data mining technique used to discover purchasing patterns by analyzing extensive volume of transaction data. Primarily used in retail to understand customer purchase behavior, MBA helps in product placement, promotion strategies, and inventory management. The main objective is to detect "if-then" patterns, find correlations between different items purchased together, using methods such as Association Rule Learning. By leveraging these techniques, retailers can extract meaningful insights from customer purchase data, leading to optimized decision-making in marketing, sales, and product management. For example : if a customer buys 'milk', then the customer is likely to buy 'bread'.
-
+### Market Basket Analysis (MBA) is a data mining technique used to discover purchasing patterns by analyzing extensive volume of transaction data. Primarily used in retail to understand customer purchase behavior, MBA helps in product placement, promotion strategies, and inventory management. The main objective is to detect "if-then" patterns, find correlations between different items purchased together, using methods such as Association Rule Learning. By leveraging these techniques, retailers can extract meaningful insights from customer purchase data, leading to optimized decision-making in marketing, sales, and product management. For example : if a customer buys 'milk', then the customer is likely to buy 'bread'.
+---
 
 A typical process includes
 

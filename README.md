@@ -19,3 +19,17 @@
 ---
 # **Association Rule Learning**
 ---
+### Association rule learning is a technique in data mining for discovering interesting relationships between variables in large datasets. The primary goal is to find frequent patterns, correlations, or associations from data sets found in various kinds of databases such as relational databases, transactional databases, and other forms of repositories. For instance, have you ever considered the [possibility of a connection between the purchase of diapers and beer](https://tdwi.org/articles/2016/11/15/beer-and-diapers-impossible-correlation.aspx)?
+
+### An association rule has two parts: an antecedent ( IF ) and a consequent ( THEN ). The rule suggests that if the antecedent happens, the consequent is likely to occur as well. These rules are typically used to analyze retail basket or transaction data, but are also applicable in other areas like web usage mining, intrusion detection, and bioinformatics.
+
+<p align="center"><br>
+  <img src="https://github.com/andytoh78/MarketBasketAnalysis/assets/139482827/fdabcb57-562e-45e1-ab12-1c5ad233f99a" alt="Market Basket Analysis Image">
+</p>
+
+### Association rules can be classified into 3 broad categories 
+- ### **Trival** (everyone knows about it!) 
+- ### **Inexplicable** (does not make any logical sense but seems to correlated)
+- ### **Actionable** (insights that suggest a course of action) 
+
+

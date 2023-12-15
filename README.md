@@ -322,10 +322,67 @@ $$\begin{equation}
 
 &nbsp;
 
-### Confidence is a crucial metric in association rule mining, acting as an indicator for the strength of the relationship in an association rule. Similar to support, confidence values are also within the **${\color{yellow}\texttt{range of 0 and 1}}$**. A higher confidence value implies a stronger likelihood that customers who purchase item X will also purchase item Y, indicating a stronger association between the two items.
+### Confidence is a crucial metric in association rule mining as it indicates the **${\color{yellow}\texttt{strength of the relationship}}$** in an association rule. Similar to support, confidence values are also within the **${\color{yellow}\texttt{range of 0 and 1}}$**. A higher confidence value implies a stronger likelihood that customers who purchase item X will also purchase item Y, indicating a stronger association between the two items.
 - ### Confidence of 0 :  Indicates no observed association between items X and Y. In other words, if customers buy item X, there is NO confidence that they will also buy item Y.
 - ### Confidence of 1 : Indicates a perfect association between items X and Y. If customer buy item X, it is guaranteed that they will also buy item Y.<br><br>
 
-### Confidence values are **${\color{yellow}\texttt{computed specifically from the association rules generated from the frequent itemsets}}$**. Each rule ($X \Rightarrow Y$) has its own confidence value, which is calculated using the support values obtained from the data. This makes confidence a rule-specific metric, providing insights into the strength of individual rules derived from the dataset.<br><br>
+### Confidence values are computed specifically from the **${\color{yellow}\texttt{association rules}}$** generated **${\color{yellow}\texttt{from the frequent itemsets}}$**. Each rule ($X \Rightarrow Y$) has its own confidence value, which is calculated using the support values obtained from the data. This makes confidence a rule-specific metric, providing insights into the strength of individual rules derived from the dataset. Confidence also typically operates under a **${\color{yellow}\texttt{minimum confidence threshold}}$**. This threshold is a **${\color{yellow}\texttt{user-defined}}$** limit set to distinguish and focus only those association rules that are deemed interesting and are most likely to be meaningful and actionable.
 
-### Mathematically, it can be expressed as<br><br>
+```python
+confidence_values = [] 
+# Calculate confidence for two-item itemsets
+for index, row in df_support_final.iterrows():
+    if isinstance(row['Itemset'], list) and len(row['Itemset']) == 2:
+        item1, item2 = row['Itemset']
+        support_item1 = df_support[df_support['Itemset'] == item1]['Support'].values[0]
+        support_item2 = df_support[df_support['Itemset'] == item2]['Support'].values[0]
+
+        # Rule : item1 → item2
+        confidence1 = row['Support'] / support_item1
+        confidence_values.append({'Rule': f'{item1} → {item2}', 'Confidence': confidence1})
+
+        # Rule : item2 → item1
+        confidence2 = row['Support'] / support_item2
+        confidence_values.append({'Rule': f'{item2} → {item1}', 'Confidence': confidence2})
+
+# Calculate confidence for three-item itemsets
+for index, row in df_support_final.iterrows():
+    if isinstance(row['Itemset'], list) and len(row['Itemset']) == 3:
+        item1, item2, item3 = row['Itemset']
+
+        # Finding support for the combination of two items from the three-item itemset
+        support_combo1 = df_support_final[df_support_final['Itemset'].apply(lambda x: set([item1, item2]).issubset(set(x)))]['Support'].values[0]
+        support_combo2 = df_support_final[df_support_final['Itemset'].apply(lambda x: set([item2, item3]).issubset(set(x)))]['Support'].values[0]
+        support_combo3 = df_support_final[df_support_final['Itemset'].apply(lambda x: set([item1, item3]).issubset(set(x)))]['Support'].values[0]
+
+        # Calculate confidence for the rules
+        confidence1 = row['Support'] / support_combo1
+        confidence2 = row['Support'] / support_combo2
+        confidence3 = row['Support'] / support_combo3
+
+        # Append the rules
+        confidence_values.append({'Rule': f'{item1}, {item2} → {item3}', 'Confidence': confidence1})
+        confidence_values.append({'Rule': f'{item2}, {item3} → {item1}', 'Confidence': confidence2})
+        confidence_values.append({'Rule': f'{item1}, {item3} → {item2}', 'Confidence': confidence3})
+
+# Convert the results into a dataframe
+df_confidence = pd.DataFrame((confidence_values, columns=['Rule', 'Confidence'])
+
+# Display the results
+df_confidence
+```
+### The above code snippet will return a table showing the confidence values for the frequent itemsets.
+
+| Rule                  | Confidence |
+|:-----------------------|:------------|
+| Milk → Orange         | 0.833333   |
+| Orange → Milk         | 0.625000   |
+| Apple → Bread         | 0.714286   |
+| Bread → Apple         | 0.714286   |
+| Apple → Orange        | 1.000000   |
+| Orange → Apple        | 0.875000   |
+| Bread → Orange        | 0.857143   |
+| Orange → Bread        | 0.750000   |
+| Apple, Bread → Orange | 1.000000   |
+| Bread, Orange → Apple | 0.833333   |
+| Apple, Orange → Bread | 0.714286   |

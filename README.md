@@ -94,15 +94,29 @@ txn_count = len(df)
 # Get the list of item names, excluding TID
 items = df.columns.drop('TID')
 
-# Initialize an empty dictionary to store support values
-support_values = {}
+# Initialize an empty list to store support values
+support_values = []
 
 # Calculate support for each item
 for item in items:
-    support_values[item] = df[item].sum()/txn_count
+    support_value = df[item].sum() / txn_count
+    support_values.append((item, support_value))
 
-# Display the suppory values for all the items in the transaction dataset
-support_values
+# Convert the results into a dataframe
+df_support = pd.DataFrame(support_values, columns=['Item', 'Support'])
+
+# Display the results
+df_support
 ```
 
-### The above 
+### The above code snippet will return a table showing the frequency of each item across all transactions in the dataset. For example, Milk appears in 60% of the transactions, while Spinach appears in 40%. ​
+
+| Item       |Support |
+|:-----------|:----   |
+|Milk        | 0.6    |
+|Apple       | 0.7    |
+|Butter      | 0.5    |
+|Bread       | 0.7    |
+|Orange      | 0.8    |
+|Spinach     | 0.4    |
+ 

@@ -109,7 +109,7 @@ df_support = pd.DataFrame(support_values, columns=['Item', 'Support'])
 df_support
 ```
 
-### The above code snippet will return a table showing the frequency of each item across all transactions in the dataset. For example, Milk appears in 60% of the transactions, while Spinach appears in 40%. ​
+### The above code snippet will return a table showing the support of each item across all transactions in the dataset. For example, Milk appears in 60% of the transactions, while Spinach appears in 40%. ​
 
 | Item       |Support |
 |:-----------|:----   |
@@ -120,3 +120,51 @@ df_support
 |Orange      | 0.8    |
 |Spinach     | 0.4    |
  
+### Finding the frequency of itemsets containing two or more items is also a common task in market basket analysis. 
+
+
+```python
+# Import combinations function from itertools to generate all possible combinations
+from itertools import combinations
+
+# Compute the support for each itemset of size 2
+combo2_support_values = []
+for combo2 in combinations(items, 2):
+    support_value = df
+
+combo2 = combinations(items, 2)
+
+# # Loop through the combinations object and print each combination
+combo2_support_values_list = []
+for combo in combinations(items, 2):
+    combo_support = df[list(combo)].all(axis=1).mean()
+    combo2_support_values_list.append((list(combo), combo_support))
+    print(combo)
+
+# Convert the results into a dataframe
+df_combo2_support = pd.DataFrame(combo2_support_values_list, columns=['Itemset', 'Support'])
+
+# Display the results
+df_combo2_support
+```
+### The above code snippet will calculates the support values for every pair combination of items, across all the transactions in the dataset. The result is a table where each row represents a unique pair of items and their corresponding support value, indicating the frequency with which these pairs appear together in the dataset. For example, 40% of the transactions in the dataset contain both Milk and Apple.
+
+| Itemset          | Support |
+|:-----------------|:--------|
+| [Milk, Apple]    | 0.4     |
+| [Milk, Butter]   | 0.4     |
+| [Milk, Bread]    | 0.4     |
+| [Milk, Orange]   | 0.5     |
+| [Milk, Spinach]  | 0.2     |
+| [Apple, Butter]  | 0.3     |
+| [Apple, Bread]   | 0.5     |
+| [Apple, Orange]  | 0.7     |
+| [Apple, Spinach] | 0.4     |
+| [Butter, Bread]  | 0.4     |
+| [Butter, Orange] | 0.4     |
+| [Butter, Spinach]| 0.2     |
+| [Bread, Orange]  | 0.6     |
+| [Bread, Spinach] | 0.3     |
+| [Orange, Spinach]| 0.4     |
+
+

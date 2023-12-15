@@ -21,15 +21,88 @@
 ---
 ### Association rule learning is a technique in data mining for discovering interesting relationships between variables in large datasets. The primary goal is to find frequent patterns, correlations, or associations from data sets found in various kinds of databases such as relational databases, transactional databases, and other forms of repositories. For instance, have you ever considered the [possibility of a connection between the purchase of diapers and beer](https://tdwi.org/articles/2016/11/15/beer-and-diapers-impossible-correlation.aspx)?
 
-### An association rule has two parts: an antecedent ( IF ) and a consequent ( THEN ). The rule suggests that if the antecedent happens, the consequent is likely to occur as well. These rules are typically used to analyze retail basket or transaction data, but are also applicable in other areas like web usage mining, intrusion detection, and bioinformatics.
+### An association rule has two parts: **${\color{yellow}\texttt{antecedent (IF)}}$** and **${\color{yellow}\texttt{ consequent (THEN)}}$**. The rule suggests that if the antecedent happens, the consequent is likely to occur as well. These rules are typically used to analyze retail basket or transaction data, but are also applicable in other areas like web usage mining, intrusion detection, and bioinformatics.
 
 <p align="center"><br>
   <img src="https://github.com/andytoh78/MarketBasketAnalysis/assets/139482827/fdabcb57-562e-45e1-ab12-1c5ad233f99a" alt="Market Basket Analysis Image">
 </p>
 
-### Association rules can be classified into 3 broad categories 
-- ### **Trival** (everyone knows about it!) 
-- ### **Inexplicable** (does not make any logical sense but seems to correlated)
-- ### **Actionable** (insights that suggest a course of action) 
+### Association rules can be classified into 3 broad categories and the strength can be measured in terms of its **${\color{yellow}\texttt{support}}$** and **${\color{yellow}\texttt{confidence}}$**.
+- ### **${\color{yellow}\texttt{Trival}}$** (everyone knows about it!) 
+- ### **${\color{yellow}\texttt{Inexplicable}}$** (does not make any logical sense but seems to correlated)
+- ### **${\color{yellow}\texttt{Actionable}}$** (insights that suggest a course of action) 
+
+---
+## **Support**
+---
+
+### Support (Coverage) refers to the **${\color{yellow}\texttt{frequency}}$** with which **${\color{yellow}\texttt{an itemset appears in the dataset}}$**. It provides an indication of how common or popular an itemset is within the given dataset. An itemset in the context of association rule learning is a set of one or more items that occur together in a transactional dataset.
+
+### An itemset is considered **${\color{yellow}\texttt{frequent}}$** only if the support is equal or greater than an agreed upon minimal value, also known as **${\color{yellow}\texttt{minimum support threshold}}$**.<br><br>
+
+$$\begin{equation}
+\textbf{Support}(X)=\dfrac{\textbf{Total number of transactions containing } X}{\textbf{Total number of transactions}}
+\end{equation}$$
 
 
+### <br>For an association rule $X$ (antecedent) ⇒ $Y$ (consequent), the support is the proportion of transactions in the dataset that contain both $X$ and $Y$.<br><br>
+
+$$\begin{equation}
+\textbf{Support}(X \cup Y)=\dfrac{\textbf{Total number of transactions containing } X\textbf{ and } Y}{\textbf{Total number of transactions}}=\dfrac{(X \cup Y)}{N}
+\end{equation}$$
+
+&nbsp;
+
+### Consider the following transaction dataset (df), where each row represents a basket or transaction with a unique Transaction ID (TID), and each column represents a unique item. The values '1' and '0' indicate whether a particular item was purchased ('1') or not ('0') in each transaction. <br><br>
+
+| TID         | Milk | Apple | Butter | Bread | Orange | Spinach |
+|:----------- |:---- |:----- |:------ |:------|:------ |:------- |
+| 1           | 1    | 1     | 1      | 1     | 1      | 1       |
+| 2           | 0    | 1     | 0      | 1     | 1      | 1       |
+| 3           | 0    | 0     | 0      | 1     | 0      | 0       |
+| 4           | 1    | 1     | 0      | 0     | 1      | 1       |
+| 5           | 0    | 1     | 1      | 1     | 1      | 1       |
+| 6           | 1    | 0     | 1      | 1     | 1      | 0       |
+| 7           | 1    | 0     | 1      | 0     | 0      | 0       |
+| 8           | 1    | 1     | 0      | 1     | 1      | 0       |
+| 9           | 0    | 1     | 0      | 0     | 1      | 0       |
+| 10          | 1    | 1     | 1      | 1     | 1      | 0       |
+
+
+### <br>To calculate the **${\color{yellow}\texttt{Support}}$** (or frequency) for each item, we will need to count the number of transactions in which each item appears and then divide that count by the total number of transactions. Below is the Python code snippet to calculate the Support for each item in the transaction dataset.
+
+```python
+# Import pandas
+import pandas as pd
+
+# Create the transaction dataframe
+data = {
+    "TID" : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "Milk": [1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
+    "Apple": [1, 1, 0, 1, 1, 0, 0, 1, 1, 1],
+    "Butter": [1, 0, 0, 0, 1, 1, 1, 0, 0, 1],
+    "Bread": [1, 1, 1, 0, 1, 1, 0, 1, 0, 1],
+    "Orange": [1, 1, 0, 1, 1, 1, 0, 1, 1, 1],
+    "Spinach": [1, 1, 0, 1, 1, 0, 0, 0, 0, 0]
+}
+
+df = pd.DataFrame(data)
+
+# Compute the total count of transactions in the dataset
+txn_count = len(df)
+
+# Get the list of item names, excluding TID
+items = df.columns.drop('TID')
+
+# Initialize an empty dictionary to store support values
+support_values = {}
+
+# Calculate support for each item
+for item in items:
+    support_values[item] = df[item].sum()/txn_count
+
+# Display the suppory values for all the items in the transaction dataset
+support_values
+```
+
+### The above 

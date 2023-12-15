@@ -36,9 +36,9 @@
 ## **Support**
 ---
 
-### Support (Coverage) refers to the **${\color{yellow}\texttt{frequency}}$** with which **${\color{yellow}\texttt{an itemset appears in the dataset}}$**. It provides an indication of how common or popular an itemset is within the given dataset. An itemset in the context of association rule learning is a set of one or more items that occur together in a transactional dataset.
+### Support (Coverage) refers to the **${\color{yellow}\texttt{frequency}}$** with which **${\color{yellow}\texttt{an itemset appears in the dataset}}$**. Ranged **${\color{yellow}\texttt{between 0 and 1}}$**, it provides an indication of how common or popular an itemset is within the given dataset, with **${\color{yellow}\texttt{0 being the least common}}$** (indicating that the itemset does not appear in any transactions) and **${\color{yellow}\texttt{1 being the most common}}$** (indicating that the itemset appears in all transactions). An itemset in the context of association rule learning is a set of one or more items that occur together in a transactional dataset.
 
-### An itemset is considered **${\color{yellow}\texttt{frequent}}$** only if the support is equal or greater than an agreed upon minimal value, also known as **${\color{yellow}\texttt{minimum support threshold}}$**.<br><br>
+### An itemset is considered **${\color{yellow}\texttt{frequent}}$** only if the support is equal or greater than an agreed upon (user-defined) minimal value, also known as **${\color{yellow}\texttt{minimum support threshold}}$**. This principle assumes that not all item combinations are equally significant or interesting; some occur together more often than others. By focusing only the frequent itemsets, we aim to uncover the most relevant and potentially insightful patterns within the dataset.<br><br>
 
 $$\begin{equation}
 \textbf{Support}(X)=\dfrac{\textbf{Total number of transactions containing } X}{\textbf{Total number of transactions}}
@@ -98,12 +98,12 @@ items = df.columns.drop('TID')
 support_values = []
 
 # Calculate support for each item
-for item in items:
-    support_value = df[item].sum() / txn_count
-    support_values.append((item, support_value))
+for itemset in items:
+    support_value = df[itemset].sum() / txn_count
+    support_values.append((itemset, support_value))
 
 # Convert the results into a dataframe
-df_support = pd.DataFrame(support_values, columns=['Item', 'Support'])
+df_support = pd.DataFrame(support_values, columns=['Itemset', 'Support'])
 
 # Display the results
 df_support
@@ -122,24 +122,15 @@ df_support
  
 ### Finding the frequency of itemsets containing two or more items is also a common task in market basket analysis. 
 
-
 ```python
 # Import combinations function from itertools to generate all possible combinations
 from itertools import combinations
 
 # Compute the support for each itemset of size 2
-combo2_support_values = []
-for combo2 in combinations(items, 2):
-    support_value = df
-
-combo2 = combinations(items, 2)
-
-# # Loop through the combinations object and print each combination
 combo2_support_values_list = []
 for combo in combinations(items, 2):
     combo_support = df[list(combo)].all(axis=1).mean()
     combo2_support_values_list.append((list(combo), combo_support))
-    print(combo)
 
 # Convert the results into a dataframe
 df_combo2_support = pd.DataFrame(combo2_support_values_list, columns=['Itemset', 'Support'])
@@ -147,7 +138,7 @@ df_combo2_support = pd.DataFrame(combo2_support_values_list, columns=['Itemset',
 # Display the results
 df_combo2_support
 ```
-### The above code snippet will calculates the support values for every pair combination of items, across all the transactions in the dataset. The result is a table where each row represents a unique pair of items and their corresponding support value, indicating the frequency with which these pairs appear together in the dataset. For example, 40% of the transactions in the dataset contain both Milk and Apple.
+### The above code snippet will calculate the support values for every pair combination of items, across all the transactions in the dataset. The result is a table where each row represents a unique pair of items and their corresponding support value, indicating the frequency with which these pairs appear together in the dataset. For example, 40% of the transactions in the dataset contain both Milk and Apple.
 
 | Itemset          | Support |
 |:-----------------|:--------|
@@ -167,4 +158,174 @@ df_combo2_support
 | [Bread, Spinach] | 0.3     |
 | [Orange, Spinach]| 0.4     |
 
+```python
+# Import combinations function from itertools to generate all possible combinations
+from itertools import combinations
 
+# Compute the support for each itemset of size 3
+combo3_support_values_list = []
+for combo in combinations(items, 3):
+    combo_support = df[list(combo)].all(axis=1).mean()
+    combo3_support_values_list.append((list(combo), combo_support))
+
+# Convert the results into a dataframe
+df_combo3_support = pd.DataFrame(combo3_support_values_list, columns=['Itemset', 'Support'])
+
+# Display the results
+df_combo3_support
+```
+### The above code snippet is for calculating the support values for three-item combinations within the dataset.
+
+| Itemset                    | Support |
+|----------------------------|---------|
+| [Milk, Apple, Butter]      | 0.2     |
+| [Milk, Apple, Bread]       | 0.3     |
+| [Milk, Apple, Orange]      | 0.4     |
+| [Milk, Apple, Spinach]     | 0.2     |
+| [Milk, Butter, Bread]      | 0.3     |
+| [Milk, Butter, Orange]     | 0.3     |
+| [Milk, Butter, Spinach]    | 0.1     |
+| [Milk, Bread, Orange]      | 0.4     |
+| [Milk, Bread, Spinach]     | 0.1     |
+| [Milk, Orange, Spinach]    | 0.2     |
+| [Apple, Butter, Bread]     | 0.3     |
+| [Apple, Butter, Orange]    | 0.3     |
+| [Apple, Butter, Spinach]   | 0.2     |
+| [Apple, Bread, Orange]     | 0.5     |
+| [Apple, Bread, Spinach]    | 0.3     |
+| [Apple, Orange, Spinach]   | 0.4     |
+| [Butter, Bread, Orange]    | 0.4     |
+| [Butter, Bread, Spinach]   | 0.2     |
+| [Butter, Orange, Spinach]  | 0.2     |
+| [Bread, Orange, Spinach]   | 0.3     |
+
+### Combining the support for both single-item, two-item and three-item itemsets, and assuming itemsets are only considered frequent if they exist in 50% of the transactions i.e. **${\color{yellow}\texttt{minimum support threshold = 0.5}}$**, we are left with ten itemsets that meet or exceed this threshold. These frequent itemsets will be our main focus in identifying the key patterns and trends in consumer purchasing behaviour, providing valuable insights for strategic decision-making in areas such as product placement, marketing and promotions, and inventory optimization.
+
+```python
+# Combining both single-item and two-item itemsets
+df_support_combined = pd.concat([df_support, df_combo2_support, df_combo3_support])
+
+# Define minimum support threshold
+min_support_threshold = 0.5
+
+# Drop itemsets with support less than or equal to 0.5
+df_support_final = df_support_combined[df_support_combined['Support'] >= min_support_threshold]
+
+# Display the results
+df_support_final
+```
+| Itemset          | Support |
+|:-----------------|:--------|
+| Milk             | 0.6     |
+| Apple            | 0.7     |
+| Butter           | 0.5     |
+| Bread            | 0.7     |
+| Orange           | 0.8     |
+| ~~Spinach~~      | ~~0.4~~ |
+| ~~[Milk, Apple]~~    | ~~0.4~~     |
+| ~~[Milk, Butter]~~   | ~~0.4~~     |
+| ~~[Milk, Bread]~~    | ~~0.4~~     |
+| [Milk, Orange]   | 0.5     |
+| ~~[Milk, Spinach]~~  | ~~0.2~~     |
+| ~~[Apple, Butter]~~  | ~~0.3~~     |
+| [Apple, Bread]   | 0.5     |
+| [Apple, Orange]  | 0.7     |
+| ~~[Apple, Spinach]~~ | ~~0.4~~     |
+| ~~[Butter, Bread]~~  | ~~0.4~~     |
+| ~~[Butter, Orange]~~ | ~~0.4~~     |
+| ~~[Butter, Spinach]~~| ~~0.2~~     |
+| [Bread, Orange]  | 0.6     |
+| ~~[Bread, Spinach]~~ | ~~0.3~~     |
+| ~~[Orange, Spinach]~~| ~~0.4~~     |
+| ~~[Milk, Apple, Butter]~~      | ~~0.2~~     |
+| ~~[Milk, Apple, Bread]~~       | ~~0.3~~     |
+| ~~[Milk, Apple, Orange]~~      | ~~0.4~~     |
+| ~~[Milk, Apple, Spinach]~~     | ~~0.2~~     |
+| ~~[Milk, Butter, Bread]~~      | ~~0.3~~     |
+| ~~[Milk, Butter, Orange]~~     | ~~0.3~~     |
+| ~~[Milk, Butter, Spinach]~~    | ~~0.1~~     |
+| ~~[Milk, Bread, Orange]~~      | ~~0.4~~     |
+| ~~[Milk, Bread, Spinach]~~     | ~~0.1~~     |
+| ~~[Milk, Orange, Spinach]~~    | ~~0.2~~     |
+| ~~[Apple, Butter, Bread]~~     | ~~0.3~~     |
+| ~~[Apple, Butter, Orange]~~    | ~~0.3~~     |
+| ~~[Apple, Butter, Spinach]~~   | ~~0.2~~     |
+| [Apple, Bread, Orange]     | 0.5     |
+| ~~[Apple, Bread, Spinach]~~    | ~~0.3~~     |
+| ~~[Apple, Orange, Spinach]~~   | ~~0.4~~     |
+| ~~[Butter, Bread, Orange]~~    | ~~0.4~~     |
+| ~~[Butter, Bread, Spinach]~~   | ~~0.2~~     |
+| ~~[Butter, Orange, Spinach]~~  | ~~0.2~~     |
+| ~~[Bread, Orange, Spinach]~~   | ~~0.3~~     |
+
+---
+## **Establish Association Rules**
+---
+### With the frequent itemsets, we can now formulate potential association rules ($X \Rightarrow Y$). These rules are structured as if-then statements and are instrumental in evaluating the probability of relationships between different items within the dataset.
+
+> [!NOTE]
+> ### Since an association rule requires and is defined by an antecedent and a consequent, it can only be generated for itemsets that contain **${\color{yellow}\texttt{at least two items}}$**.
+
+```python
+# Generate association rules from two-item itemsets
+association_rules = []
+for index, row in df_support_final.iterrows():
+    if isinstance(row['Itemset'], list) and len(row['Itemset']) == 2:
+        item1, item2 = row['Itemset']
+        support_item1 = df_support[df_support['Itemset'] == item1]['Support'].values[0]
+        support_item2 = df_support[df_support['Itemset'] == item2]['Support'].values[0]
+        association_rules.append(f'{item1} → {item2}')
+        association_rules.append(f'{item2} → {item1}')
+
+# Generate association rules from three-item itemsets
+for index, row in df_support_final.iterrows():
+    if isinstance(row['Itemset'], list) and len(row['Itemset']) == 3:
+        item1, item2, item3 = row['Itemset']
+        support_item1 = df_support[df_support['Itemset'] == item1]['Support'].values[0]
+        support_item2 = df_support[df_support['Itemset'] == item2]['Support'].values[0]
+        support_item3 = df_support[df_support['Itemset'] == item3]['Support'].values[0] 
+        association_rules.append(f'[{item1}, {item2}] → {item3}')
+        association_rules.append(f'[{item2}, {item3}] → {item1}')
+        association_rules.append(f'[{item3}, {item1}] → {item2}')
+```
+
+Below are the association rules generated from the frequent itemsets.
+
+>['Milk → Orange',\
+> 'Orange → Milk',\
+> 'Apple → Bread',\
+> 'Bread → Apple',\
+> 'Apple → Orange',\
+> 'Orange → Apple',\
+> 'Bread → Orange',\
+> 'Orange → Bread',\
+> '[Apple, Bread] → Orange',\
+> '[Bread, Orange] → Apple',\
+> '[Orange, Apple] → Bread']
+
+
+---
+## **Confidence**
+---
+
+### Confidence is a measure of how often items in $Y$ appear in transactions that contain $X$. Statistically, it is the **${\color{yellow}\texttt{conditional probability}}$** that a transaction **${\color{yellow}\texttt{containing the antecedent also contains the consequent}}$**.<br><br> 
+
+$$\begin{equation}
+\textbf{Confidence}(X \Rightarrow Y)={\textbf{P}(Y|X)}
+\end{equation}$$
+
+### Mathematically, it can be expressed as the **${\color{yellow}\texttt{ratio of the support of the combined itemset}}$**(both X and Y together)  **${\color{yellow}\texttt{to the support of the antecedent itemset}}$**<br><br>
+
+$$\begin{equation}
+\textbf{Confidence}(X \Rightarrow Y)=\dfrac{\textbf{Support}(X \cup Y)}{\textbf{Support}(X)}
+\end{equation}$$
+
+&nbsp;
+
+### Confidence is a crucial metric in association rule mining, acting as an indicator for the strength of the relationship in an association rule. Similar to support, confidence values are also within the **${\color{yellow}\texttt{range of 0 and 1}}$**. A higher confidence value implies a stronger likelihood that customers who purchase item X will also purchase item Y, indicating a stronger association between the two items.
+- ### Confidence of 0 :  Indicates no observed association between items X and Y. In other words, if customers buy item X, there is NO confidence that they will also buy item Y.
+- ### Confidence of 1 : Indicates a perfect association between items X and Y. If customer buy item X, it is guaranteed that they will also buy item Y.<br><br>
+
+### Confidence values are **${\color{yellow}\texttt{computed specifically from the association rules generated from the frequent itemsets}}$**. Each rule ($X \Rightarrow Y$) has its own confidence value, which is calculated using the support values obtained from the data. This makes confidence a rule-specific metric, providing insights into the strength of individual rules derived from the dataset.<br><br>
+
+### Mathematically, it can be expressed as<br><br>

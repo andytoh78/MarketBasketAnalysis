@@ -31,7 +31,8 @@
 ## **Implementation Steps**
 ---
 ```python
-# Import required libraries and load the datatset
+# Import required libraries and load the [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv)
+ datatset.
 
 ```
 

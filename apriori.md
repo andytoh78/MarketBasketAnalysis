@@ -184,7 +184,7 @@ Mineral water is the most frequently purchased item, and it appears in 1788 (~24
 
 ### **${\color{lightgreen}\textsf{Bar Plot}}$**
 ```python
-# Create the countplot with the filtered data
+# Create the countplot to display top 30 most frequent items
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(figsize=(18, 6))
@@ -206,6 +206,7 @@ plt.show()
 ### **${\color{lightgreen}\textsf{Word Cloud}}$**
 A word cloud can be an engaging way to visualize frequent items where the size of each item's name is proportional to its frequency. This can be useful for a quick view and identification of the most common items, although it is less precise in terms of quantification.
 ```python
+# Create the word cloud to visualize frequent items
 from wordcloud import WordCloud
 
 # Combine Item values into a string with space separator
@@ -226,6 +227,9 @@ plt.show()
 ### **${\color{lightgreen}\textsf{Tree Map}}$**
 Tree maps display each item as a rectangle, with the size corresponding to the frequency of the item. This can be a visually appealing way to represent hierarchical data and show relative patterns at a glance.
 ```python
+# Create the tree map to display top 30 most frequent items
+import seaborn as sns
+sns.set_style("whitegrid")
 import squarify
 
 # Convert 'Count' column to integers

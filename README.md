@@ -1,7 +1,7 @@
 ![image](https://github.com/andytoh78/MarketBasketAnalysis/assets/139482827/84b6080b-9026-43a0-9477-67f91d4ffa2f)
 
 ---
-### Market Basket Analysis (MBA) is a data mining technique used to discover purchasing patterns by analyzing extensive volume of transaction data. Primarily used in retail to understand customer purchase behavior, MBA helps in product placement, promotion strategies, and inventory management. The main objective is to **${\color{yellow}\textbf{detect IF-THEN patterns}}$**, find **${\color{yellow}\textbf{correlations}}$** between different items **${\color{yellow}\textbf{purchased together}}$**, using methods such as **${\color{yellow}\textbf{Association Rule Learning}}$**. By leveraging these techniques, retailers can extract meaningful insights from customer purchase data, leading to optimized decision-making in marketing, sales, and product management. For example : if a customer buys 'milk', then the customer is likely to buy 'bread'.
+### Market Basket Analysis (MBA) is a data mining technique used to discover purchasing patterns by analyzing extensive volume of transaction data. Primarily used in retail to understand customer purchase behavior, MBA helps in product placement, promotion strategies, and inventory management. The main objective is to **${\color{yellow}\textsf{detect IF-THEN patterns}}$**, find **${\color{yellow}\textsf{correlations between different items purchased together}}$**, using methods such as **${\color{yellow}\textsf{Association Rule Learning}}$**. By leveraging these techniques, retailers can extract meaningful insights from customer purchase data, leading to optimized decision-making in marketing, sales, and product management. For example : if a customer buys 'milk', then the customer is likely to buy 'bread'.
 ---
 
 ![image](https://github.com/andytoh78/MarketBasketAnalysis/assets/139482827/ab90679c-fca6-434d-9148-6a1d342d7872)
@@ -21,24 +21,24 @@
 ---
 ### Association rule learning is a technique in data mining for discovering interesting relationships between variables in large datasets. The primary goal is to find frequent patterns, correlations, or associations from data sets found in various kinds of databases such as relational databases, transactional databases, and other forms of repositories. For instance, have you ever considered the [possibility of a connection between the purchase of diapers and beer](https://tdwi.org/articles/2016/11/15/beer-and-diapers-impossible-correlation.aspx)?
 
-### An association rule has two parts: **${\color{yellow}\textbf{antecedent (IF)}}$** and **${\color{yellow}\textbf{ consequent (THEN)}}$**. The rule suggests that if the antecedent happens, the consequent is likely to occur as well. These rules are typically used to analyze retail basket or transaction data, but are also applicable in other areas like web usage mining, intrusion detection, and bioinformatics.
+### An association rule has two parts: **${\color{yellow}\textsf{antecedent (IF)}}$** and **${\color{yellow}\textsf{ consequent (THEN)}}$**. The rule suggests that if the antecedent happens, the consequent is likely to occur as well. These rules are typically used to analyze retail basket or transaction data, but are also applicable in other areas like web usage mining, intrusion detection, and bioinformatics.
 
 <p align="center"><br>
   <img src="https://github.com/andytoh78/MarketBasketAnalysis/assets/139482827/fdabcb57-562e-45e1-ab12-1c5ad233f99a" alt="Market Basket Analysis Image">
 </p>
 
-### Association rules can be classified into 3 broad categories and the strength can be measured in terms of its **${\color{yellow}\textbf{support}}$** and **${\color{yellow}\textbf{confidence}}$**.
-- ### **${\color{yellow}\textbf{Trival}}$** (everyone knows about it!) 
-- ### **${\color{yellow}\textbf{Inexplicable}}$** (does not make any logical sense but seems to correlated)
-- ### **${\color{yellow}\textbf{Actionable}}$** (insights that suggest a course of action) 
+### Association rules can be classified into 3 broad categories and the strength can be measured in terms of its **${\color{yellow}\textsf{support}}$** and **${\color{yellow}\textsf{confidence}}$**.
+- ### **${\color{yellow}\textsf{Trival}}$** (everyone knows about it!) 
+- ### **${\color{yellow}\textsf{Inexplicable}}$** (does not make any logical sense but seems to correlated)
+- ### **${\color{yellow}\textsf{Actionable}}$** (insights that suggest a course of action) 
 
 ---
 ## **Support**
 ---
 
-### Support (Coverage) refers to the **${\color{yellow}\textbf{frequency}}$** with which **${\color{yellow}\textbf{an itemset appears in the dataset}}$**. Ranged **${\color{yellow}\textbf{between 0 and 1}}$**, it provides an indication of how common or popular an itemset is within the given dataset, with **${\color{yellow}\textbf{0 being the least common}}$** (indicating that the itemset does not appear in any transactions) and **${\color{yellow}\textbf{1 being the most common}}$** (indicating that the itemset appears in all transactions). An itemset in the context of association rule learning is a set of one or more items that occur together in a transactional dataset.
+### Support (Coverage) refers to the **${\color{yellow}\textsf{frequency}}$** with which **${\color{yellow}\textsf{an itemset appears in the dataset}}$**. Ranged **${\color{yellow}\textsf{between 0 and 1}}$**, it provides an indication of how common or popular an itemset is within the given dataset, with **${\color{yellow}\textsf{0 being the least common}}$** (indicating that the itemset does not appear in any transactions) and **${\color{yellow}\textsf{1 being the most common}}$** (indicating that the itemset appears in all transactions). An itemset in the context of association rule learning is a set of one or more items that occur together in a transactional dataset.
 
-### An itemset is considered **${\color{yellow}\textbf{frequent}}$** only if the support is equal or greater than an agreed upon (user-defined) minimal value, also known as **${\color{yellow}\textbf{minimum support threshold}}$**. This principle assumes that not all item combinations are equally significant or interesting; some occur together more often than others. By focusing only the frequent itemsets, we aim to uncover the most relevant and potentially insightful patterns within the dataset.<br><br>
+### An itemset is considered **${\color{yellow}\textsf{frequent}}$** only if the support is equal or greater than an agreed upon (user-defined) minimal value, also known as **${\color{yellow}\textsf{minimum support threshold}}$**. This principle assumes that not all item combinations are equally significant or interesting; some occur together more often than others. By focusing only the frequent itemsets, we aim to uncover the most relevant and potentially insightful patterns within the dataset.<br><br>
 
 $$\begin{equation}
 \textbf{Support}(X)=\dfrac{\textbf{Total number of transactions containing } X}{\textbf{Total number of transactions}}
@@ -69,7 +69,7 @@ $$\begin{equation}
 | 10          | 1    | 1     | 1      | 1     | 1      | 0       |
 
 
-### <br>To calculate the **${\color{yellow}\textbf{Support}}$** (or frequency) for each item, we will need to count the number of transactions in which each item appears and then divide that count by the total number of transactions. Below is the Python code snippet to calculate the Support for each item in the transaction dataset.
+### <br>To calculate the **${\color{yellow}\textsf{Support}}$** (or frequency) for each item, we will need to count the number of transactions in which each item appears and then divide that count by the total number of transactions. Below is the Python code snippet to calculate the Support for each item in the transaction dataset.
 
 ```python
 # Import pandas
@@ -199,7 +199,7 @@ df_combo3_support
 | [Butter, Orange, Spinach]  | 0.2     |
 | [Bread, Orange, Spinach]   | 0.3     |
 
-### Combining the support for both single-item, two-item and three-item itemsets, and assuming itemsets are only considered frequent if they exist in 50% of the transactions i.e. **${\color{yellow}\textbf{minimum support threshold = 0.5}}$**, we are left with ten itemsets that meet or exceed this threshold. These frequent itemsets will be our main focus in identifying the key patterns and trends in consumer purchasing behaviour, providing valuable insights for strategic decision-making in areas such as product placement, marketing and promotions, and inventory optimization.
+### Combining the support for both single-item, two-item and three-item itemsets, and assuming itemsets are only considered frequent if they exist in 50% of the transactions i.e. **${\color{yellow}\textsf{minimum support threshold = 0.5}}$**, we are left with ten itemsets that meet or exceed this threshold. These frequent itemsets will be our main focus in identifying the key patterns and trends in consumer purchasing behaviour, providing valuable insights for strategic decision-making in areas such as product placement, marketing and promotions, and inventory optimization.
 
 ```python
 # Combining both single-item and two-item itemsets
@@ -264,7 +264,7 @@ df_support_final
 ### With the frequent itemsets, we can now formulate potential association rules ($X \Rightarrow Y$). These rules are structured as if-then statements and are instrumental in evaluating the probability of relationships between different items within the dataset.
 
 > [!NOTE]
-> ### Since an association rule requires and is defined by an antecedent and a consequent, it can only be generated for itemsets that contain **${\color{yellow}\textbf{at least two items}}$**.
+> ### Since an association rule requires and is defined by an antecedent and a consequent, it can only be generated for itemsets that contain **${\color{yellow}\textsf{at least two items}}$**.
 
 ```python
 # Generate association rules from two-item itemsets
@@ -308,13 +308,13 @@ Below are the association rules generated from the frequent itemsets.
 ## **Confidence**
 ---
 
-### Confidence is a measure of how often items in $Y$ appear in transactions that contain $X$. Statistically, it is the **${\color{yellow}\textbf{conditional probability}}$** that a transaction **${\color{yellow}\textbf{containing the antecedent also contains the consequent}}$**.<br><br> 
+### Confidence is a measure of how often items in $Y$ appear in transactions that contain $X$. Statistically, it is the **${\color{yellow}\textsf{conditional probability}}$** that a transaction **${\color{yellow}\textsf{containing the antecedent also contains the consequent}}$**.<br><br> 
 
 $$\begin{equation}
 \textbf{Confidence}(X \Rightarrow Y)={\textbf{P}(Y|X)}
 \end{equation}$$
 
-### Mathematically, it can be expressed as the **${\color{yellow}\textbf{ratio of the support of the combined itemset}}$**(both X and Y together)  **${\color{yellow}\textbf{to the support of the antecedent itemset}}$**<br><br>
+### Mathematically, it can be expressed as the **${\color{yellow}\textsf{ratio of the support of the combined itemset}}$**(both X and Y together)  **${\color{yellow}\textsf{to the support of the antecedent itemset}}$**<br><br>
 
 $$\begin{equation}
 \textbf{Confidence}(X \Rightarrow Y)=\dfrac{\textbf{Support}(X \cup Y)}{\textbf{Support}(X)}
@@ -322,11 +322,11 @@ $$\begin{equation}
 
 &nbsp;
 
-### Confidence is a crucial metric in association rule mining as it indicates the **${\color{yellow}\textbf{strength of the relationship}}$** in an association rule. Similar to support, confidence values are also within the **${\color{yellow}\textbf{range of 0 and 1}}$**. A higher confidence value implies a stronger likelihood that customers who purchase item X will also purchase item Y, indicating a stronger association between the two items.
+### Confidence is a crucial metric in association rule mining as it indicates the **${\color{yellow}\textsf{strength of the relationship}}$** in an association rule. Similar to support, confidence values are also within the **${\color{yellow}\textsf{range of 0 and 1}}$**. A higher confidence value implies a stronger likelihood that customers who purchase item X will also purchase item Y, indicating a stronger association between the two items.
 - ### Confidence of 0 :  Indicates no observed association between items X and Y. In other words, if customers buy item X, there is NO confidence that they will also buy item Y.
 - ### Confidence of 1 : Indicates a perfect association between items X and Y. If customer buy item X, it is guaranteed that they will also buy item Y.<br><br>
 
-### Confidence values are computed specifically from the **${\color{yellow}\textbf{association rules}}$** generated **${\color{yellow}\textbf{from the frequent itemsets}}$**. Each rule ($X \Rightarrow Y$) has its own confidence value, which is calculated using the support values obtained from the data. This makes confidence a rule-specific metric, providing insights into the strength of individual rules derived from the dataset. Confidence also typically operates under a **${\color{yellow}\textbf{minimum confidence threshold}}$**. This threshold is a **${\color{yellow}\textbf{user-defined}}$** limit set to distinguish and focus only those association rules that are deemed interesting and are most likely to be meaningful and actionable.
+### Confidence values are computed specifically from the **${\color{yellow}\textsf{association rules}}$** generated **${\color{yellow}\textsf{from the frequent itemsets}}$**. Each rule ($X \Rightarrow Y$) has its own confidence value, which is calculated using the support values obtained from the data. This makes confidence a rule-specific metric, providing insights into the strength of individual rules derived from the dataset. Confidence also typically operates under a **${\color{yellow}\textsf{minimum confidence threshold}}$**. This threshold is a **${\color{yellow}\textsf{user-defined}}$** limit set to distinguish and focus only those association rules that are deemed interesting and are most likely to be meaningful and actionable.
 
 ```python
 confidence_values = [] 

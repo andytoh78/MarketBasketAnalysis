@@ -60,7 +60,7 @@ Below shows the first five rows of the dataset, where each row represents a bask
 # View shape of the dataset
 print(f"The dataset contains {df.shape[0]} transactions and each transaction has a maximum of {df.shape[1]} items or less.")
 ```
-> ##### The dataset contains 7501 transactions and each transaction has a maximum of 20 items or less.
+> #### The dataset contains 7501 transactions and each transaction has a maximum of 20 items or less.
 
 ```python
 # Generate transaction lists
@@ -71,7 +71,7 @@ txns = [[item.strip() for item in txn] for txn in txns]
 # Display first 5 lists
 txns[:5]
 ```
-> ##### [['shrimp', 'almonds', 'avocado', 'vegetables mix', 'green grapes', 'whole weat flour', 'yams', 'cottage cheese', 'energy drink', 'tomato juice', 'low fat yogurt', 'green tea', 'honey', 'salad', 'mineral water', 'salmon', 'antioxydant juice', 'frozen smoothie', 'spinach', 'olive oil'], ['burgers', 'meatballs', 'eggs'],['chutney'], ['turkey', 'avocado'], ['mineral water', 'milk', 'energy bar', 'whole wheat rice', 'green tea']]
+> #### [['shrimp', 'almonds', 'avocado', 'vegetables mix', 'green grapes', 'whole weat flour', 'yams', 'cottage cheese', 'energy drink', 'tomato juice', 'low fat yogurt', 'green tea', 'honey', 'salad', 'mineral water', 'salmon', 'antioxydant juice', 'frozen smoothie', 'spinach', 'olive oil'], ['burgers', 'meatballs', 'eggs'],['chutney'], ['turkey', 'avocado'], ['mineral water', 'milk', 'energy bar', 'whole wheat rice', 'green tea']]
 
 ```python
 # Create a list of unique ids for the transactions
@@ -120,5 +120,50 @@ df_txn.head(31)
 | 5    | whole wheat rice  |
 | 5    | green tea         |
 
+```python
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+%matplotlib inline
+from wordcloud import WordCloud
 
+# Combine Item values into a string with space separator
+all_values = [item for txn in txns for item in txn]
+all_values_list = ' '.join(all_values)
 
+# Create a word cloud object
+wordcloud = WordCloud(width=400, height=400, background_color="white", min_font_size=10, colormap='viridis').generate(all_values_list)
+
+# Display the word cloud
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis("off")
+plt.tight_layout(pad=0)
+plt.show()
+```
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/e5f4ae36-daa7-4a42-beb8-db2e00831224)
+
+```python
+import seaborn as sns
+sns.set_style("whitegrid")
+sns.set(font="Arial")
+
+# Get the top 30 most frequent items
+top_items = df_txn['Item'].value_counts().head(30).index
+
+# Filter the DataFrame to include only the top items
+df_top = df_txn[df_txn['Item'].isin(top_items)]
+
+# Create the countplot with the filtered data
+fig, ax = plt.subplots(figsize=(18, 5))
+ax = sns.countplot(data=df_top, x="Item", order=top_items, edgecolor="black", color="skyblue")
+ax.bar_label(ax.containers[0], fontsize=10, fontweight=600)
+plt.title("Top 30 Most Frequent Items\n", fontsize=14, fontweight=700)
+plt.xlabel("\nItem", fontsize=12, fontweight=700)
+plt.ylabel("Quantity\n", fontsize=12, fontweight=700)
+plt.xticks(rotation=90)  # Rotate x-axis labels for better readability
+plt.gca().grid(False)
+plt.gca().spines[["left", "bottom"]].set_color("black")
+plt.gca().set_facecolor("white")
+plt.tight_layout()
+plt.show()
+```
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/47c532c9-feb0-4233-80c2-e5450904144a)

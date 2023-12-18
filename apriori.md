@@ -56,9 +56,11 @@ df.head()
 Below shows the first five rows of the dataset, where each row represents a basket or collection of items purchased in a single transaction.<br><br>
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/edeccbd7-a940-4841-b189-2dd55f2397c9)
 
-
-
-
+```python
+# View shape of the dataset
+print(f"The dataset contains {df.shape[0]} rows and {df.shape[1]} columns.")
+```
+> The dataset contains 7501 rows and 20 columns.
 
 
 

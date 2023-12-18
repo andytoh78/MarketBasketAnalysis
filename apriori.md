@@ -1,7 +1,7 @@
 # **Understanding the Apriori Algorithm**
 ---
 
-### The Apriori algorithm is a classic algorithm in data mining used for mining frequent itemsets and discovering association rules. This page aims to provide an overview of the Apriori algorithm, its method, key parameters, advantages, limitations, and a basic implementation guide using Python.
+### The Apriori algorithm,  introduced by R. Agrawal and R. Srikant in 1994, is a classic algorithm in data mining used for mining frequent itemsets and discovering association rules in a database. This page aims to provide an overview of the Apriori algorithm, its method, key parameters, advantages, limitations, and a basic implementation guide using Python.
 
 
 ## **Method**

@@ -45,6 +45,11 @@ pip install mlxtend
 # Load dataset and view first 5 rows
 import numpy as np
 import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=FutureWarning, module="seaborn")
+warnings.filterwarnings("ignore", category=Warning)
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_colwidth", None)
 

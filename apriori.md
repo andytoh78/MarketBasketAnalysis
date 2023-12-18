@@ -340,6 +340,7 @@ plt.show()
 
 ```python
 # Generate association rules from the frequent itemsets assuming the likelihood of purchasing the antecedent, followed by the consequent has to be at least 30% to be considered significant or interesting 
+from mlxtend.frequent_patterns import association_rules
 confidence_threshold = 0.3 
 rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=confidence_threshold)
 
@@ -374,6 +375,7 @@ plt.xlabel("\nSupport", fontsize=12, fontweight=700)
 plt.ylabel("Confidence\n", fontsize=12, fontweight=700)
 plt.gca().grid(False)
 plt.gca().spines[["left", "bottom"]].set_color("black")
+plt.gca().spines[["right", "top"]].set_visible(False)
 plt.gca().set_facecolor("white")
 plt.show()
 ```
@@ -422,7 +424,8 @@ nx.draw(G, pos, edge_color=edge_colors, width=edge_widths, edge_cmap=colormap, e
 cbar = plt.colorbar(plt.cm.ScalarMappable(cmap=colormap, norm=lift_norm), ax=ax, shrink=0.4)
 cbar.set_label("Lift Value")
 
-plt.axis("off"
+plt.axis("off")
+plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/a4d6dc6f-a022-437e-87a3-c6104a843c29" width="650" height="400">
 
@@ -443,3 +446,10 @@ plt.gca().set_facecolor("white")
 plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/bd2b95de-5d5a-4609-b735-8cdecb38e754" width="700" height="150">
+
+## **Summary**
+---
+- Mineral water is a frequent consequent, suggesting it is commonly bought with many different items.<p>
+- The strongest association rule based on confidence is (ground beef) -> (water) with a confidence of about 0.42, meaning that when ground beef is bought, water is also likely to be bought in 42% of the cases.<p>
+- Milk, chocolate, and spaghetti also have strong associations with mineral water, with confidence levels above 32%.
+

@@ -37,12 +37,22 @@
 
 **${\color{yellow}\textsf{IMPLEMENTATION STEPS}}$**
 ---
+We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of Apriori algorithm in Market Basket Analysis
+
 ```python
-# Import required libraries and load the [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv)
- datatset.
-
+# Install machine learning extensions (mlxtend) library
+pip install mlxtend
 ```
+```python
+# Load dataset and view first 5 rows
+import numpy as np
+import pandas as pd
+pd.set_option("display.max_columns", None)
+pd.set_option("display.max_colwidth", None)
 
+df = pd.read_csv("Market_Basket_Optimisation.csv", header=None)
+df.head()
+```
 
 
 

@@ -58,14 +58,67 @@ Below shows the first five rows of the dataset, where each row represents a bask
 
 ```python
 # View shape of the dataset
-print(f"The dataset contains {df.shape[0]} rows and {df.shape[1]} columns.")
+print(f"The dataset contains {df.shape[0]} transactions and each transaction has a maximum of {df.shape[1]} items or less.")
 ```
-> The dataset contains 7501 rows and 20 columns.
+> ##### The dataset contains 7501 transactions and each transaction has a maximum of 20 items or less.
 
+```python
+# Generate transaction lists
+txns = df.fillna("").values.tolist()
+txns = [[item for item in txn if item != ''] for txn in txns]
+txns = [[item.strip() for item in txn] for txn in txns]
 
+# Display first 5 lists
+txns[:5]
+```
+> ##### [['shrimp', 'almonds', 'avocado', 'vegetables mix', 'green grapes', 'whole weat flour', 'yams', 'cottage cheese', 'energy drink', 'tomato juice', 'low fat yogurt', 'green tea', 'honey', 'salad', 'mineral water', 'salmon', 'antioxydant juice', 'frozen smoothie', 'spinach', 'olive oil'], ['burgers', 'meatballs', 'eggs'],['chutney'], ['turkey', 'avocado'], ['mineral water', 'milk', 'energy bar', 'whole wheat rice', 'green tea']]
 
+```python
+# Create a list of unique ids for the transactions
+ids = [i + 1 for i in range(len(txns))]
 
+# Initialize an empty DataFrame
+data =[]
+# Iterate through transactions and add them to the DataFrame with IDs
+for i, txn in enumerate(txns):
+    data.extend([{'TID': ids[i], 'Item': item} for item in txn])
 
+df_txn = pd.DataFrame(data)
+df_txn.head(31)
+```
+| TID  | Item              | 
+|:---  |:----------------- | 
+| 1    | shrimp            |
+| 1    | almonds           |
+| 1    | avocado           |
+| 1    | vegetables mix    |
+| 1    | green grapes      |
+| 1    | whole weat flour  |
+| 1    | yams              |
+| 1    | cottage cheese    |
+| 1    | energy drink      |
+| 1    | tomato juice      |
+| 1    | low fat yogurt    |
+| 1    | green tea         |
+| 1    | honey             |
+| 1    | salad             |
+| 1    | mineral water     |
+| 1    | salmon            |
+| 1    | antioxydant juice |
+| 1    | frozen smoothie   |
+| 1    | spinach           |
+| 1    | olive oil         |
+| 2    | burgers           |
+| 2    | meatballs         |
+| 2    | eggs              |
+| 3    | chutney           |
+| 4    | turkey            |
+| 4    | avocado           |
+| 5    | mineral water     |
+| 5    | milk              |
+| 5    | energy bar        |
+| 5    | whole wheat rice  |
+| 5    | green tea         |
 
 
 

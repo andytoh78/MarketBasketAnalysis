@@ -335,6 +335,9 @@ plt.tight_layout()
 plt.show()
 ```
 
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/21c32e37-17ad-4521-9358-99df573669b2)
+
+
 ```python
 # Generate association rules from the frequent itemsets assuming the likelihood of purchasing the antecedent, followed by the consequent has to be at least 30% to be considered significant or interesting 
 confidence_threshold = 0.3 

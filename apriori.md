@@ -53,6 +53,9 @@ pd.set_option("display.max_colwidth", None)
 df = pd.read_csv("Market_Basket_Optimisation.csv", header=None)
 df.head()
 ```
+Below shows the first five rows of the dataset, where each row represents a basket or collection of items purchased in a single transaction.
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/edeccbd7-a940-4841-b189-2dd55f2397c9)
+
 
 
 

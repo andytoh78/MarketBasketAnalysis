@@ -179,7 +179,7 @@ df_top_30items
 > | fresh bread      | 323   | 4.31    |
 > | salmon           | 319   | 4.25    |
 
-Mineral water is the most frequently purchased item, and it appears in 1788 (~24%) transactions. Several food items like eggs, spaghetti, french fries, chocolate, and green tea also have high purchase counts. We can also visualize the frequent items using bar charts, heatmaps, pie charts, tree maps, word cloud, network graph to better understand their distribution within the dataset.
+Mineral water is the most frequently purchased item, and it appears in 1788 (~24%) transactions. Several food items like eggs, spaghetti, french fries, chocolate, and green tea also have high purchase counts. We can also visualize the frequent items using bar charts, heatmaps, pie charts, tree maps, word cloud to better understand their distribution within the dataset.
 
 
 ### **${\color{lightgreen}\textsf{Bar Plot}}$**
@@ -300,6 +300,33 @@ frequent_itemsets
 The most frequent individual items are mineral water (23.84%), eggs (17.97%), and spaghetti (17.41%). There are also five frequent itemsets with two items e.g. (chocolate, mineral water) with a support of 5.27%, indicating that these items often appear together in transactions.
 
 ```python
+# Create the countplot for top 30 most frequent itemsets
+import matplotlib.pyplot as plt
+
+# Convert frozensets to strings and remove 'frozenset' from the representation
+frequent_itemsets['itemset'] = frequent_itemsets['itemsets'].apply(lambda x: ', '.join(list(x)))
+
+# Sort and filter top 15 most frequent itemsets
+freq_sorted = frequent_itemsets.sort_values(by="support", ascending=False)
+freq_sorted_top30 = freq_sorted.head(30)
+freq_sorted_top30["support %"] = (freq_sorted_top30["support"]*100).round(2)
+
+fig, ax = plt.subplots(figsize=(18, 6))
+plt.bar(data=freq_sorted_top30, x="itemset", height="support %", edgecolor="black", color="skyblue")
+ax.bar_label(ax.containers[0], fontsize=10, fontweight=600)
+plt.title("Top 30 Most Frequent Items\n", fontsize=14, fontweight=700)
+plt.xlabel("\nItem", fontsize=12, fontweight=700)
+plt.ylabel("Quantity\n", fontsize=12, fontweight=700)
+plt.xticks(rotation=90)
+plt.gca().grid(False)
+plt.gca().spines[["left", "bottom"]].set_color("black")
+plt.gca().spines[["right", "top"]].set_visible(False)
+plt.gca().set_facecolor("white")
+plt.tight_layout()
+plt.show()
+```
+
+```python
 # Generate association rules from the frequent itemsets assuming the likelihood of purchasing the antecedent, followed by the consequent has to be at least 30% to be considered significant or interesting 
 confidence_threshold = 0.3 
 rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=confidence_threshold)
@@ -315,7 +342,7 @@ sorted_rules
 > | (spaghetti)   | (mineral water) |           0.174110 |           0.238368 |  0.059725 |    0.343032 | 1.439085 | 0.018223  |    1.159314 |     0.369437 |
 > | (chocolate)   | (mineral water) |           0.163845 |           0.238368 |  0.052660 |    0.321400 | 1.348332 | 0.013604  |    1.122357 |     0.308965 |
 
-Customers who purchase ground beef are 41.66% likely to also purchase mineral water and this association is supported by a lift value of 1.75, which signifies that these items are frequently bought together. Similiar observations were found for some other items - milk, spaghetti, and chocolate, in association with mineral water.
+Customers who purchase ground beef are 41.66% likely to also purchase mineral water and this association is supported by a lift value of 1.75, which signifies that these items are frequently bought together. Similiar observations were found for some other items - milk, spaghetti, and chocolate, in association with mineral water. To visualize association rules, we can leverage the scatter plots, network graphs, heatmaps, and bar charts to understand their distribution within the dataset and their strength of association.
 
 ### **${\color{lightgreen}\textsf{Scatter Plot}}$**
 ```python
@@ -343,6 +370,7 @@ plt.show()
 ### **${\color{lightgreen}\textsf{Network Graph}}$**
 We can also visualize how items are associated with one another using a network graph, which represent items as nodes and the association rules as edges and colour intensity. 
 ```python
+# Create a network graph to visualize the characteristics of the association rules
 import networkx as nx
 import matplotlib.cm as cm
 from matplotlib.cm import get_cmap
@@ -385,3 +413,21 @@ cbar.set_label("Lift Value")
 plt.axis("off"
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/a4d6dc6f-a022-437e-87a3-c6104a843c29" width="650" height="400">
+
+### **${\color{lightgreen}\textsf{Heat Maps}}$**
+```python
+# Create a heatmap to visualize the relationships between the antecedents and consequents
+# Convert frozensets to strings and remove 'frozenset' from the representation
+rules['antecedents'] = rules['antecedents'].apply(lambda x: ', '.join(list(x)))
+rules['consequents'] = rules['consequents'].apply(lambda x: ', '.join(list(x)))
+
+# Show frequency or strength of item associations
+pivot_table = rules.pivot(index="consequents", columns="antecedents", values="confidence")
+plt.figure(figsize=(14, 2))
+sns.heatmap(pivot_table, annot=True, cmap="viridis")
+plt.xlabel("\nantecedents", fontsize=12, fontweight=600)
+plt.ylabel("consequents\n\n", fontsize=12, fontweight=600)
+plt.gca().set_facecolor("white")
+plt.show()
+```
+<img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/bd2b95de-5d5a-4609-b735-8cdecb38e754" width="700" height="150">

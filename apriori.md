@@ -10,7 +10,7 @@ The Apriori algorithm operates by identifying frequent itemsets in a dataset and
 >[!Note]
 >A key principle of Apriori is that **${\color{yellow}\textsf{a subset of a frequent itemset must also be frequent}}$**. For instance, if the itemset {A, B, C} is frequent, it implies that all of its subsets, such as {A, B}, {A, C}, {B, C}, {A}, {B}, and {C}, must also be frequent. This is because any transaction containing {A, B, C} also contains all its subsets. This principle efficiently reduces the number of support calculations needed and speeds up the discovery of association rules in large datasets.
 
-![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/86991afa-6b51-4414-9fb0-12043050dd02)
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/ca6ace62-dce7-4183-ad4b-4c33c2b49b8d)
 
 &nbsp;
 

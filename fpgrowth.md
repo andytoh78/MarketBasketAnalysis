@@ -1,4 +1,4 @@
-# **Apriori Algorithm**
+# **FP-Growth Algorithm**
 ---
 
 The FP-growth (Frequent Pattern growth) algorithm is another popular algorithm for discovering frequent itemsets and association rules. It offers advantages over both Apriori and Eclat in terms of efficiency and scalability. This page aims to provide an overview of the FP-growth algorithm, its method, key parameters, advantages, limitations, and a basic implementation guide using Python.

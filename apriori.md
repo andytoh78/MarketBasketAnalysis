@@ -137,19 +137,19 @@ The output of the above code snippet provides a binary representation of the tra
 Before applying the Apriori algorithm, let's first take a look at the 30 most commonly purchased items in the dataset
 
 ```python
-# Find the top 30 most frequent items
-top_30items = df_txn['Item'].value_counts().head(30).reset_index()
+# Find the top most frequent items
+top_items = df_txn['Item'].value_counts().reset_index()
 
-# Convert the top 30 items into DataFrame and sort by item count in descending order
-df_top_30items = pd.DataFrame(top_30items)
-df_top_30items.columns = ['Item', 'Count']
+# Convert the top items into DataFrame and sort by item count in descending order
+df_top_items = pd.DataFrame(top_items)
+df_top_items.columns = ['Item', 'Count']
 
 # Calculate the percentage of transactions for each item
 total_transactions = len(df)
-df_top_30items['% Count'] = (df_top_30items['Count']*100 / total_transactions).round(2)
+df_top_items['% Count'] = (df_top_items['Count']*100 / total_transactions).round(2)
 
 # Display the results
-df_top_30items
+df_top_items.style.background_gradient(cmap='Blues')
 ```
 > | Item             | Count | % Count |
 > |:-----------------|:------|:--------|
@@ -193,7 +193,7 @@ Mineral water is the most frequently purchased item, and it appears in 1788 (~24
 import matplotlib.pyplot as plt
 
 fig, ax = plt.subplots(figsize=(18, 6))
-plt.bar(data=df_top_30items, x="Item", height="Count", edgecolor="black", color="skyblue")
+plt.bar(data=df_top_items.head(30), x="Item", height="Count", edgecolor="black", color="skyblue")
 ax.bar_label(ax.containers[0], fontsize=10, fontweight=600)
 plt.title("Top 30 Most Frequent Items\n", fontsize=14, fontweight=700)
 plt.xlabel("\nItem", fontsize=12, fontweight=700)
@@ -238,10 +238,13 @@ sns.set_style("whitegrid")
 import squarify
 
 # Convert 'Count' column to integers
-df_top_30items['Count'] = df_top_30items['Count'].astype(int)
+df_top_items['Count'] = df_top_items['Count'].astype(int)
 
 # Create a figure and axis
 fig, ax = plt.subplots(figsize=(12, 6))
+
+# Top 30 items
+df_top_30items = df_top_items.head(30)
 
 # Calculate treemap sizes
 sizes = df_top_30items['Count']

@@ -30,9 +30,9 @@ The FP-growth algorithm employs a divide-and-conquer strategy to discover freque
 
 &nbsp;
 
-**${\color{yellow}\textsf{IMPLEMENTATION STEPS}}$**
+**${\color{yellow}\textsf{IMPLEMENTATION STEPS - MLXTEND}}$**
 ---
-We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of Apriori algorithm in Market Basket Analysis
+We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of FP-growth algorithm in Market Basket Analysis
 
 ```python
 # Install machine learning extensions (mlxtend) library
@@ -129,9 +129,9 @@ df1.head()
 ```
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/01e3cc0c-b119-4823-9edb-a6fc8d21a0df)
 
-The output of the above code snippet provides a binary representation of the transaction data. Each row represents a transaction, and each column corresponds to an item. If an item is present in a transaction, the corresponding cell value will be indicated as `True`; otherwise, it will be `False`. This **${\color{yellow}\textsf{one-hot encoded}}$** format is commonly used for various data mining tasks, including association rule mining. This is also the required format when using the Apriori alogrithm in identifying frequent itemsets and association rules.
+The output of the above code snippet provides a binary representation of the transaction data. Each row represents a transaction, and each column corresponds to an item. If an item is present in a transaction, the corresponding cell value will be indicated as `True`; otherwise, it will be `False`. This **${\color{yellow}\textsf{one-hot encoded}}$** format is commonly used for various data mining tasks, including association rule mining. This is also the required format when using the FP-growth (from mlxtend) alogrithm in identifying frequent itemsets and association rules.
 
-Before applying the Apriori algorithm, let's first take a look at the 30 most commonly purchased items in the dataset
+Before applying the FP-growth algorithm, let's first take a look at the 30 most commonly purchased items in the dataset
 
 ```python
 # Find the top most frequent items
@@ -258,15 +258,15 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/32b713fd-38f6-4dec-ab21-f481cf8f3122" width="700" height="400">
 
-<br>We will now apply the Apriori algorithm to find the frequent itemsets and the association rules that are deemed as significant or interesting. 
+<br>We will now apply the FP-growth algorithm to find the frequent itemsets and the association rules that are deemed as significant or interesting. 
 ```python
 # Generate frequent itemsets
-from mlxtend.frequent_patterns import apriori
+from mlxtend.frequent_patterns import fpgrowth
 
-# Applying Apriori algorithm assuming an item has to appear in at least 4% of the total transaction to be considered as frequent
+# Applying fpgrowth algorithm assuming an item has to appear in at least 4% of the total transaction to be considered as frequent
 min_support_threshold = 0.04
-frequent_itemsets = apriori(df1, min_support=min_support_threshold, use_colnames=True)
-frequent_itemsets
+fp_frequent_itemsets = fpgrowth(df1, min_support=min_support_threshold, use_colnames=True)
+fp_frequent_itemsets
 ```
 > |   support | itemsets                     |
 > |----------:|:-----------------------------|
@@ -342,7 +342,7 @@ plt.show()
 # Generate association rules from the frequent itemsets assuming the likelihood of purchasing the antecedent, followed by the consequent has to be at least 30% to be considered significant or interesting 
 from mlxtend.frequent_patterns import association_rules
 confidence_threshold = 0.3 
-rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=confidence_threshold)
+rules = association_rules(fp_frequent_itemsets, metric="confidence", min_threshold=confidence_threshold)
 
 # Sorting rules by confidence, support, and lift
 sorted_rules = rules.sort_values(['confidence', 'support', 'lift'], ascending=[False, False, False])
@@ -446,6 +446,118 @@ plt.gca().set_facecolor("white")
 plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/bd2b95de-5d5a-4609-b735-8cdecb38e754" width="700" height="150">
+
+&nbsp;
+
+**${\color{yellow}\textsf{IMPLEMENTATION STEPS - FPGROWTH_PY}}$**
+---
+We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of FP-growth algorithm in Market Basket Analysis
+
+```python
+# Install fpgrowth library
+pip install fpgrowth_py
+```
+```python
+# Load dataset and view first 5 rows
+import numpy as np
+import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore", category=FutureWarning, module="seaborn")
+warnings.filterwarnings("ignore", category=Warning)
+pd.set_option("display.max_columns", None)
+pd.set_option("display.max_colwidth", None)
+
+df = pd.read_csv("/kaggle/input/market-basket-optimisation/Market_Basket_Optimisation.csv", header=None, index_col=None, names=[f"Item_{i}" for i in range(1, 21)])
+df.head()
+```
+Below shows the first five rows of the dataset, where each row represents a basket or collection of items that are purchased together in a single transaction.<br><br>
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/edeccbd7-a940-4841-b189-2dd55f2397c9)
+
+```python
+# View shape of the dataset
+print(f"The dataset contains {df.shape[0]} transactions and each transaction has a maximum of {df.shape[1]} items or less.")
+```
+The dataset contains 7501 transactions and each transaction has a maximum of 20 items or less.
+
+```python
+# Generate transaction lists
+txns = df.fillna("").values.tolist()
+txns = [[item for item in txn if item != ''] for txn in txns]
+txns = [[item.strip() for item in txn] for txn in txns]
+
+# Create a list of unique ids for the transactions
+ids = [i + 1 for i in range(len(txns))]
+
+# Initialize an empty list
+data =[]
+# Iterate through transactions and add them to the DataFrame with IDs
+for i, txn in enumerate(txns):
+    data.extend([{'TID': ids[i], 'Item': item} for item in txn])
+
+df_txn = pd.DataFrame(data)
+df_txn.head(25)
+```
+> | TID  | Item              | 
+> |:---  |:----------------- | 
+> | 1    | shrimp            |
+> | 1    | almonds           |
+> | 1    | avocado           |
+> | 1    | vegetables mix    |
+> | 1    | green grapes      |
+> | 1    | whole weat flour  |
+> | 1    | yams              |
+> | 1    | cottage cheese    |
+> | 1    | energy drink      |
+> | 1    | tomato juice      |
+> | 1    | low fat yogurt    |
+> | 1    | green tea         |
+> | 1    | honey             |
+> | 1    | salad             |
+> | 1    | mineral water     |
+> | 1    | salmon            |
+> | 1    | antioxydant juice |
+> | 1    | frozen smoothie   |
+> | 1    | spinach           |
+> | 1    | olive oil         |
+> | 2    | burgers           |
+> | 2    | meatballs         |
+> | 2    | eggs              |
+> | 3    | chutney           |
+> | 4    | turkey            |
+
+```python
+# Generate frequent itemsets
+from fpgrowth_py import fpgrowth
+
+# Applying fpgrowth algorithm assuming an item has to appear in at least 4% of the total transaction to be considered as frequent
+# Generate association rules from the frequent itemsets assuming the likelihood of purchasing the antecedent, followed by the consequent has to be at least 30% to be considered significant or interesting 
+frequent_itemsets, rules = fpgrowth(txns, minSupRatio=0.04, minConf=0.3)
+print(frequent_itemsets)
+print(f"\n{rules}")
+```
+> ##### [{'salmon'}, {'fresh bread'}, {'champagne'}, {'honey'}, {'herb & pepper'}, {'soup'}, {'cooking oil'}, {'grated cheese'}, {'whole wheat rice'}, {'chicken'}, {'turkey'}, {'frozen smoothie'}, {'olive oil'}, {'tomatoes'}, {'shrimp'}, {'low fat yogurt'}, {'escalope'}, {'cookies'}, {'cake'}, {'burgers'}, {'pancakes'}, {'frozen vegetables'}, {'ground beef'}, {'mineral water', 'ground beef'}, {'milk'}, {'milk', 'mineral water'}, {'green tea'}, {'chocolate'}, {'mineral water', 'chocolate'}, {'french fries'}, {'spaghetti'}, {'mineral water', 'spaghetti'}, {'eggs'}, {'mineral water', 'eggs'}, {'mineral water'}]
+> ##### [[{'ground beef'}, {'mineral water'}, 0.41655359565807326], [{'milk'}, {'mineral water'}, 0.37037037037037035], [{'chocolate'}, {'mineral water'}, 0.3213995117982099], [{'spaghetti'}, {'mineral water'}, 0.3430321592649311]]
+
+```python
+# Convert each frequent_itemsets set to a string
+freq_itemsets_str = [', '.join(list(itemset)) for itemset in frequent_itemsets]
+
+# Create DataFrame
+freq_itemsets_df = pd.DataFrame(freq_itemsets_str, columns=['Itemset'])
+freq_itemsets_df
+```
+
+
+```python
+# Convert rules to DataFrame
+rules_df = pd.DataFrame(rules, columns=['Antecedent', 'Consequent', 'Confidence'])
+rules_df = rules_df.sort_values(by="Confidence", ascending =False).reset_index(drop=True)
+rules_df
+```
+
+
 
 ## **Summary**
 ---

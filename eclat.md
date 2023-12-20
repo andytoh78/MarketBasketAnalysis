@@ -114,18 +114,18 @@ Before applying the Eclat algorithm, let's first take a look at the 30 most comm
 
 ```python
 # Find the top 30 most frequent items
-top_30items = df_txn['Item'].value_counts().head(30).reset_index()
+top_items = df_txn['Item'].value_counts().reset_index()
 
 # Convert the top 30 items into DataFrame and sort by item count in descending order
-df_top_30items = pd.DataFrame(top_30items)
-df_top_30items.columns = ['Item', 'Count']
+df_top_items = pd.DataFrame(top_items)
+df_top_items.columns = ['Item', 'Count']
 
 # Calculate the percentage of transactions for each item
 total_transactions = len(df)
-df_top_30items['% Count'] = (df_top_30items['Count']*100 / total_transactions).round(2)
+df_top_items['% Count'] = (df_top_items['Count']*100 / total_transactions).round(2)
 
 # Display the results
-df_top_30items
+df_top_items.style.background_gradient(cmap='Blues')
 ```
 > | Item             | Count | % Count |
 > |:-----------------|:------|:--------|

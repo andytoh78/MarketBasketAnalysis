@@ -7,7 +7,7 @@ The FP-growth (Frequent Pattern growth) algorithm is another popular algorithm f
 ---
 The FP-growth algorithm employs a divide-and-conquer strategy to discover frequent itemsets. It constructs a tree-like data structure known as the **${\color{yellow}\textsf{FP-tree (Frequent Pattern tree)}}$** from the transaction database. This tree structure compactly represents the frequent patterns and their support counts. FP-growth then **${\color{yellow}\textsf{recursively mines the tree to find frequent itemsets}}$**. Unlike Apriori, FP-growth does not generate candidate itemsets explicitly, which makes it faster and more memory-efficient, especially for large datasets. In addition, there is also a **${\color{yellow}\textsf{header table}}$**, alongside the FP-tree that stores pointers to the first occurrence of each item in the FP-tree. This speeds up the process of finding frequent itemsets.
 
-![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/ca6ace62-dce7-4183-ad4b-4c33c2b49b8d)
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/d1b57782-13f4-4fd0-b0e2-20957731bce5)
 
 &nbsp;
 

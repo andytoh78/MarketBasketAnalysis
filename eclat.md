@@ -252,9 +252,22 @@ eclat.df_bin.head()
 unique_item_list = eclat.uniq_ 
 print(unique_item_list)
 ```
-![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/eb7698c0-92bb-4c8d-b7a0-38a86db49871)
+> ##### ['barbecue sauce', 'yams', ' asparagus', 'green grapes', 'cider', 'whole weat flour', 'eggs', 'sparkling water', 'bramble', 'spinach', 'french wine', 'antioxydant juice', 'strawberries', 'butter', 'chocolate', 'chili', 'protein bar', 'tomato sauce', 'avocado', 'cooking oil', nan, 'low fat yogurt', 'champagne', 'oatmeal', 'salad', 'pasta', 'mushroom cream sauce', 'tomatoes', 'french fries', 'cereals', 'shallot', 'bug spray', 'soup', 'turkey', 'chutney', 'muffins', 'almonds', 'mint', 'soda', 'nonfat milk', 'gluten free bar', 'light cream', 'shrimp', 'grated cheese', 'rice', 'pancakes', 'carrots', 'asparagus', 'salmon', 'ketchup', 'candy bars', 'energy bar', 'escalope', 'light mayo', 'mayonnaise', 'ground beef', 'strong cheese', 'fresh bread', 'chocolate bread', 'black tea', 'babies food', 'melons', 'yogurt cake', 'brownies', 'hand protein bar', 'herb & pepper', 'red wine', 'hot dogs', 'olive oil', 'cookies', 'parmesan cheese', 'green beans', 'eggplant', 'body spray', 'cream', 'gums', 'fresh tuna', 'tea', 'white wine', 'bacon', 'whole wheat pasta', 'mashed potato', 'fromage blanc', 'shampoo', 'green tea', 'frozen vegetables', 'chicken', 'sandwich', 'salt', 'blueberries', 'pepper', 'cauliflower', 'mineral water', 'extra dark chocolate', 'meatballs', 'milk', 'whole wheat rice', 'cake', 'toothpaste', 'napkins', 'vegetables mix', 'tomato juice', 'flax seed', 'frozen smoothie', 'pickles', 'honey', 'cottage cheese', 'pet food', 'burger sauce', 'energy drink', 'magazines', 'spaghetti', 'corn', 'ham', 'zucchini', 'clothes accessories', 'mint green tea', 'dessert wine', 'water spray', 'oil', 'burgers']
 
+```python
+# count items in each column
+items_total = eclat.df_bin.astype(int).sum(axis=0)
+df_top_items = pd.DataFrame(items_total).reset_index() 
+df_top_items.columns = ['Item', 'Count']
+df_top_items = df_top_items.sort_values("Count", ascending=False).reset_index(drop=True)
 
+# Calculate the percentage of transactions for each item
+total_transactions = len(df)
+df_top_items['% Count'] = (df_top_items['Count']*100 / total_transactions).round(2)
+
+# Display the results
+df_top_items.style.background_gradient(cmap='Blues')
+```
 
 
 

@@ -7,7 +7,7 @@ The Eclat (Equivalence Class Transformation) algorithm is another classic data m
 ---
 The Eclat algorithm employs a depth-first search strategy to find frequent itemsets in a dataset. Instead of generating candidate itemsets as in Apriori, Eclat uses a **${\color{yellow}\textsf{vertical data format to represent transactions}}$**. It maintains an index structure, often called the **${\color{yellow}\textsf{tidset}}$**, which records the transactions in which each item appears. Eclat then recursively combines frequent itemsets by **${\color{yellow}\textsf{intersecting their tidsets}}$**. This approach scans the database only once, eliminates the need for candidate generation, making it efficient for mining frequent itemsets in large databases.
 
-![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/4bd8b8b2-c338-4c98-91d8-057cec220407)
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/8be5e469-df60-4b25-84e4-8d00f583fb31)
 
 &nbsp;
 

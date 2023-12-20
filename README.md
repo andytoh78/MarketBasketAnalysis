@@ -366,12 +366,12 @@ for index, row in df_support_final.iterrows():
         confidence_values.append({'Rule': f'{item1}, {item3} → {item2}', 'Confidence': confidence3})
 
 # Convert the results into a dataframe
-df_confidence = pd.DataFrame((confidence_values, columns=['Rule', 'Confidence'])
+df_confidence = pd.DataFrame(confidence_values, columns=['Rule', 'Confidence'])
 
 # Display the results
 df_confidence
 ```
-The above code snippet will return a table showing the confidence values for the frequent itemsets.
+The above code snippet will return a table showing the confidence values for the frequent itemsets. For example, when customers purchase Milk, there is a 83.3% likelihood that they will also buy Orange and when customers purchase Apple and Bread, it is guaranteed they will also buy Orange.
 
 | Rule                  | Confidence |
 |:-----------------------|:------------|
@@ -386,3 +386,63 @@ The above code snippet will return a table showing the confidence values for the
 | Apple, Bread → Orange | 1.000000   |
 | Bread, Orange → Apple | 0.833333   |
 | Apple, Orange → Bread | 0.714286   |
+
+---
+## **Lift**
+---
+
+Lift is a measure of **${\color{yellow}\textsf{how much more often two items are bought together}}$** than what **${\color{yellow}\textsf{would be expected if their occurrences were entirely independent}}$**. It is used to assess the **${\color{yellow}\textsf{significance and strength of the association}}$** between two sets of items.
+
+Mathematically, lift can be expressed as the ratio of the observed joint probability of both X and Y occurring together to the expected joint probability if they were independent.<br><br> 
+
+$$\begin{equation}
+\textbf{Lift}(X \Rightarrow Y)=\dfrac{\textbf{Support}(X \cup Y)}{\textbf{Support}(X) \textbf{ x } \textbf{Support}(Y)}
+\end{equation}$$
+
+- Lift > 1 : Indicates that items X and Y appear together in transactions more often than expected by chance. This suggests a positive association between the two items. In practical terms, knowing that X is present increases the likelihood of finding Y, and vice versa.
+- Lift = 1: Implies that items X and Y are independent of each other, meaning their co-occurrence is as expected based on their individual frequencies.
+- Lift < 1: Suggests that items X and Y appear together less often than expected by chance. This indicates a negative association or a repulsion between the two items. Knowing that X is present reduces the likelihood of finding Y, and vice versa.<br><br>
+
+In essence, lift helps us understand whether there is a meaningful and non-random relationship between itemsets. It's a valuable metric for tasks like market basket analysis, where the objective is to identify significant item associations and make recommendations based on these associations.
+
+```python
+lift_values = []
+# Calculate lift for two-item itemsets
+for index, row in df_support_final.iterrows():
+    if isinstance(row['Itemset'], list) and len(row['Itemset']) == 2:
+        item1, item2 = row['Itemset']
+        support_item1 = df_support[df_support['Itemset'] == item1]['Support'].values[0]
+        support_item2 = df_support[df_support['Itemset'] == item2]['Support'].values[0]
+        lift = (row['Support']) / ((support_item1)*(support_item2))
+        lift_values.append({'Rule': f'[{item1}, {item2}]', 'Lift': lift})
+
+# Calculate lift for three-item itemsets
+for index, row in df_support_final.iterrows():
+    if isinstance(row['Itemset'], list) and len(row['Itemset']) == 3:
+        item1, item2, item3 = row['Itemset']
+        support_item1 = df_support[df_support['Itemset'] == item1]['Support'].values[0]
+        support_item2 = df_support[df_support['Itemset'] == item2]['Support'].values[0]        
+        support_item3 = df_support[df_support['Itemset'] == item3]['Support'].values[0]        
+        lift = (row['Support']) / ((support_item1)*(support_item2)*(support_item3))
+        lift_values.append({'Rule': f'[{item1}, {item2}, {item3}]', 'Lift': lift})
+
+# Convert the results into a DataFrame
+df_lift = pd.DataFrame(lift_values, columns=['Rule', 'Lift'])
+
+# Display the results
+df_lift
+```
+| Rule                  | Lift |
+|:-----------------------|:------------|
+| [Milk, Orange]         | 1.041667   |
+| [Apple, Bread]        | 1.020408   |
+| [Apple, Orange]      | 1.250000  |
+| [Bread, Orange]        | 1.071429  |
+| [Apple, Bread, Orange]       | 1.275510  |
+
+There is a slight to moderate positive association between the frequent two and three-item itemsets, indicating that the co-occurrence of these items in transactions is more frequent (lift > 1) than what would be expected by chance.
+
+---
+## **Conclusion**
+---
+Association Rule Learning is a powerful technique for uncovering valuable insights from transactional data, enabling the discovery of interesting patterns and relationships among items. To tackle complex datasets and real-world scenarios, there are advanced algorithms such as Apriori, Eclat, and FP-growth that we can leverage on to assist in finding frequent itemsets, and uncover hidden associations, and optimize decision-making processes.

@@ -5,12 +5,9 @@ The Eclat (Equivalence Class Transformation) algorithm is another classic data m
 
 **${\color{yellow}\textsf{METHOD}}$**
 ---
-The Eclat algorithm employs a depth-first search strategy to find frequent itemsets in a dataset. Instead of generating candidate itemsets as in Apriori, Eclat uses a **${\color{yellow}\textsf{vertical data format to represent transactions}}$**. It maintains an index structure, often called the **${\color{yellow}\textsf{tidset}}$**, which records the transactions in which each item appears. Eclat then recursively combines frequent itemsets by **${\color{yellow}\textsf{intersecting their tidsets}}$**. This approach eliminates the need for candidate generation, making it efficient for mining frequent itemsets in large databases.
+The Eclat algorithm employs a depth-first search strategy to find frequent itemsets in a dataset. Instead of generating candidate itemsets as in Apriori, Eclat uses a **${\color{yellow}\textsf{vertical data format to represent transactions}}$**. It maintains an index structure, often called the **${\color{yellow}\textsf{tidset}}$**, which records the transactions in which each item appears. Eclat then recursively combines frequent itemsets by **${\color{yellow}\textsf{intersecting their tidsets}}$**. This approach scans the database only once, eliminates the need for candidate generation, making it efficient for mining frequent itemsets in large databases.
 
->[!Note]
->A key principle of Apriori is that **${\color{yellow}\textsf{a subset of a frequent itemset must also be frequent}}$**. For instance, if the itemset {A, B, C} is frequent, it implies that all of its subsets, such as {A, B}, {A, C}, {B, C}, {A}, {B}, and {C}, must also be frequent. This is because any transaction containing {A, B, C} also contains all its subsets. This principle efficiently reduces the number of support calculations needed and speeds up the discovery of association rules in large datasets.
-
-![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/7a687193-0eca-46e9-a34d-9b583466c3af)
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/4bd8b8b2-c338-4c98-91d8-057cec220407)
 
 &nbsp;
 
@@ -18,9 +15,9 @@ The Eclat algorithm employs a depth-first search strategy to find frequent items
 ---
 | **Parameter**             | **Description**                                                               |
 |:--------------------------|:------------------------------------------------------------------------------|
-| `min_support`             | This is the user-defined threshold (a decimal between 0 and 1) that determines the minimum frequency at which an itemset must be present in the dataset to be considered 'frequent'.|
-| `confidence_threshold`    | This is the user-defined minimum level of confidence that an association rule must exceed to be considered significant.
-| `lift_threshold`          | This is the user-defined minimum lift value (typically >1) focusing on rules that have a positive relationship between the antecedent and consequent.|
+| `min_support`             | User-defined threshold (a decimal between 0 and 1) that determines the minimum frequency at which an itemset must be present in the dataset to be considered 'frequent'.|
+| `min_combination`    | User-defined minimum size of the itemsets to be considered frequent.<br><br>Setting a higher value for `min_combination` will result in the algorithm only considering larger itemsets as frequent. This can lead to discovering fewer but potentially more significant association rules or patterns. It filters out smaller itemsets, which may include common but less interesting associations.<br><br> Setting a lower value for `min_combination` allows the algorithm to find smaller frequent itemsets. This can lead to a larger number of discovered itemsets, including more specific and potentially noise patterns. It may be useful for finding fine-grained associations but can also result in a higher volume of results to analyze.|
+| `max_combination`          | User-defined maximum size of the itemsets to be considered.<br><br>Setting a higher value for `max_combination` allows the algorithm to consider larger itemsets as frequent. This can be useful when you have prior knowledge that certain associations or patterns involve a larger number of items. However, it may also increase computational complexity and runtime.<br><br>Setting a lower value for `max_combination` limits the size of itemsets considered by the algorithm. It can lead to faster execution and a smaller number of results, focusing on more concise patterns. However, you might miss associations that involve larger sets of items.|
 
 &nbsp;
 
@@ -28,18 +25,18 @@ The Eclat algorithm employs a depth-first search strategy to find frequent items
 ---
 | **Pros**                                          | **Cons**                                                    |
 |:--------------------------------------------------|:------------------------------------------------------------|
-| Simple to understand and easy to implement.      | Inefficient for large datasets due to multiple database scans and generation of numerous candidate sets.
-| Effective for small to medium-sized datasets.      |                                                             |
+| Efficient for finding frequent itemsets by using vertical data representation.      | Memory usage can be significant for large data.
+| Suitable for datasets with high dimensionality.| Can be computationally expensive for large datasets with numerous transactions and combinations of items.|
 
 &nbsp;
 
 **${\color{yellow}\textsf{IMPLEMENTATION STEPS}}$**
 ---
-We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of Apriori algorithm in Market Basket Analysis
+We will use the same [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) dataset to demonstrate the application of Eclat algorithm in Market Basket Analysis.
 
 ```python
-# Install machine learning extensions (mlxtend) library
-pip install mlxtend
+# Install the pyECLAT library
+pip install pyECLAT
 ```
 ```python
 # Load dataset and view first 5 rows
@@ -53,11 +50,11 @@ warnings.filterwarnings("ignore", category=Warning)
 pd.set_option("display.max_columns", None)
 pd.set_option("display.max_colwidth", None)
 
-df = pd.read_csv("/kaggle/input/market-basket-optimisation/Market_Basket_Optimisation.csv", header=None, index_col=None, names=[f"Item_{i}" for i in range(1, 21)])
+df = pd.read_csv("/kaggle/input/market-basket-optimisation/Market_Basket_Optimisation.csv", header=None)
 df.head()
 ```
 Below shows the first five rows of the dataset, where each row represents a basket or collection of items that are purchased together in a single transaction.<br><br>
-![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/edeccbd7-a940-4841-b189-2dd55f2397c9)
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/fb876432-bb1b-4907-aaa0-7b5edc3d86a9)
 
 ```python
 # View shape of the dataset
@@ -111,30 +108,9 @@ df_txn.head(25)
 > | 3    | chutney           |
 > | 4    | turkey            |
 
-```python
-# Perform one hot encoding using TransactionEncoder
-from mlxtend.preprocessing import TransactionEncoder
-
-# Create a TransactionEncoder
-te = TransactionEncoder()
-
-# Fit and transform the transaction data
-te_array = te.fit(txns).transform(txns)
-
-# Extract the column names
-te_columns = te.columns_
-
-# Create a DataFrame from the one-hot encoded array
-df1 = pd.DataFrame(te_array, columns=te.columns_)
-
-# Display the results
-df1.head()
-```
-![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/01e3cc0c-b119-4823-9edb-a6fc8d21a0df)
-
 The output of the above code snippet provides a binary representation of the transaction data. Each row represents a transaction, and each column corresponds to an item. If an item is present in a transaction, the corresponding cell value will be indicated as `True`; otherwise, it will be `False`. This **${\color{yellow}\textsf{one-hot encoded}}$** format is commonly used for various data mining tasks, including association rule mining. This is also the required format when using the Apriori alogrithm in identifying frequent itemsets and association rules.
 
-Before applying the Apriori algorithm, let's first take a look at the 30 most commonly purchased items in the dataset
+Before applying the Eclat algorithm, let's first take a look at the 30 most commonly purchased items in the dataset
 
 ```python
 # Find the top 30 most frequent items
@@ -185,7 +161,6 @@ df_top_30items
 > | salmon           | 319   | 4.25    |
 
 Mineral water is the most frequently purchased item, and it appears in 1788 (~24%) transactions. Several food items like eggs, spaghetti, french fries, chocolate, and green tea also have high purchase counts. We can also visualize the frequent items using bar charts, heatmaps, pie charts, tree maps, word cloud to better understand their distribution within the dataset.
-
 
 ### **${\color{lightgreen}\textsf{Bar Plot}}$**
 ```python
@@ -258,16 +233,31 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/32b713fd-38f6-4dec-ab21-f481cf8f3122" width="700" height="400">
 
-<br>We will now apply the Apriori algorithm to find the frequent itemsets and the association rules that are deemed as significant or interesting. 
+<br>We will now apply the Eclat algorithm to find the frequent itemsets and the association rules that are deemed as significant or interesting. 
 ```python
-# Generate frequent itemsets
-from mlxtend.frequent_patterns import apriori
+# Import the pyECLAT library
+from pyECLAT import ECLAT
 
-# Applying Apriori algorithm assuming an item has to appear in at least 4% of the total transaction to be considered as frequent
-min_support_threshold = 0.04
-frequent_itemsets = apriori(df1, min_support=min_support_threshold, use_colnames=True)
-frequent_itemsets
+from pyECLAT import ECLAT
+# Initiate an Eclat instance and load transactions DataFrame to the instance
+eclat = ECLAT(data=df, verbose=True)
+
+# Generate a binary dataframe
+eclat.df_bin.head()
 ```
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/df654415-d246-498a-9f93-a5c90692730d)
+
+```python
+# Display a list with all the names of the different items
+unique_item_list = eclat.uniq_ 
+print(unique_item_list)
+```
+![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/eb7698c0-92bb-4c8d-b7a0-38a86db49871)
+
+
+
+
+
 > |   support | itemsets                     |
 > |----------:|:-----------------------------|
 > |  0.087188 | (burgers)                    |

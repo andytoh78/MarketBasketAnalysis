@@ -278,7 +278,6 @@ result
 > | ground beef & mineral water | 0.040928 |
 
 ## **Summary**
----
 - The top 5 items with the highest support values are: mineral water (23.84%), eggs (17.97%), spaghetti (17.41%), french fries (17.09%), and chocolate (16.38%).<p>
 - The least frequent items are fresh bread (4.31%), salmon (4.25%), and ground beef & mineral water (4.09%).<p>
 - Some interesting itemsets with relatively high support include mineral water & spaghetti (5.97%), chocolate & mineral water (5.27%), and eggs & mineral water (5.09%).

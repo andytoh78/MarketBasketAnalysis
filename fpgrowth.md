@@ -449,7 +449,7 @@ plt.show()
 
 &nbsp;
 
-**${\color{yellow}\textsf{IMPLEMENTATION STEPS - `FPGROWTH_PY`}}$**
+**${\color{yellow}\textsf{IMPLEMENTATION STEPS - FPGROWTH PY}}$**
 ---
 We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of FP-growth algorithm in Market Basket Analysis
 

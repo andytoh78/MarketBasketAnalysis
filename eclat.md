@@ -266,45 +266,15 @@ get_ECLAT_indexes, get_ECLAT_supports = eclat.fit(min_support = min_support_thre
 
 # Display results in a dataframe
 result = pd.DataFrame(get_ECLAT_supports.items(),columns=['Item', 'Support'])
-result = result.sort_values(by=['Support'], ascending=False).reset_index()
+result = result.sort_values(by=['Support'], ascending=False).reset_index(drop=True)
 result
 ```
 > | Item                        | Support  |
 > | --------------------------- | -------- |
-> | mineral water               | 0.238368 |
-> | eggs                        | 0.179709 |
-> | spaghetti                   | 0.17411  |
-> | french fries                | 0.170911 |
-> | chocolate                   | 0.163845 |
-> | green tea                   | 0.132116 |
-> | milk                        | 0.129583 |
-> | ground beef                 | 0.098254 |
-> | frozen vegetables           | 0.095321 |
-> | pancakes                    | 0.095054 |
-> | burgers                     | 0.087188 |
-> | cake                        | 0.081056 |
-> | cookies                     | 0.080389 |
-> | escalope                    | 0.079323 |
-> | low fat yogurt              | 0.076523 |
-> | shrimp                      | 0.071457 |
-> | tomatoes                    | 0.068391 |
-> | olive oil                   | 0.065858 |
-> | frozen smoothie             | 0.063325 |
-> | turkey                      | 0.062525 |
-> | chicken                     | 0.059992 |
 > | mineral water & spaghetti   | 0.059725 |
-> | whole wheat rice            | 0.058526 |
 > | chocolate & mineral water   | 0.05266  |
-> | grated cheese               | 0.052393 |
-> | cooking oil                 | 0.05106  |
 > | eggs & mineral water        | 0.050927 |
-> | soup                        | 0.050527 |
-> | herb & pepper               | 0.04946  |
 > | mineral water & milk        | 0.047994 |
-> | honey                       | 0.04746  |
-> | champagne                   | 0.046794 |
-> | fresh bread                 | 0.043061 |
-> | salmon                      | 0.042528 |
 > | ground beef & mineral water | 0.040928 |
 
 ## **Summary**

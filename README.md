@@ -287,6 +287,9 @@ for index, row in df_support_final.iterrows():
         association_rules.append(f'[{item1}, {item2}] → {item3}')
         association_rules.append(f'[{item2}, {item3}] → {item1}')
         association_rules.append(f'[{item3}, {item1}] → {item2}')
+
+# View associaion rules
+association_rules
 ```
 
 Below are the association rules generated from the frequent itemsets.

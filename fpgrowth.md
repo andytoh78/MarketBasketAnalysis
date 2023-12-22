@@ -548,7 +548,43 @@ freq_itemsets_str = [', '.join(list(itemset)) for itemset in frequent_itemsets]
 freq_itemsets_df = pd.DataFrame(freq_itemsets_str, columns=['Itemset'])
 freq_itemsets_df
 ```
-
+> | Itemset                    |
+> | -------------------------- |
+> | salmon                     |
+> | fresh bread                |
+> | champagne                  |
+> | honey                      |
+> | herb & pepper              |
+> | soup                       |
+> | cooking oil                |
+> | grated cheese              |
+> | whole wheat rice           |
+> | chicken                    |
+> | turkey                     |
+> | frozen smoothie            |
+> | olive oil                  |
+> | tomatoes                   |
+> | shrimp                     |
+> | low fat yogurt             |
+> | escalope                   |
+> | cookies                    |
+> | cake                       |
+> | burgers                    |
+> | pancakes                   |
+> | frozen vegetables          |
+> | ground beef                |
+> | mineral water, ground beef |
+> | milk                       |
+> | milk, mineral water        |
+> | green tea                  |
+> | chocolate                  |
+> | mineral water, chocolate   |
+> | french fries               |
+> | spaghetti                  |
+> | mineral water, spaghetti   |
+> | eggs                       |
+> | eggs, mineral water        |
+> | mineral water              |
 
 ```python
 # Convert rules to DataFrame
@@ -556,8 +592,12 @@ rules_df = pd.DataFrame(rules, columns=['Antecedent', 'Consequent', 'Confidence'
 rules_df = rules_df.sort_values(by="Confidence", ascending =False).reset_index(drop=True)
 rules_df
 ```
-
-
+> | Antecedent    | Condequent      | Confidece |
+> | ------------- | --------------- | --------- |
+> | {ground beef} | {mineral water} | 0.41655   |
+> | {milk}        | {mineral water} | 0.37037   |
+> | {spaghetti}   | {mineral water} | 0.34303   |
+> | {chocolate}   | {mineral water} | 0.3214    |
 
 ## **Summary**
 ---

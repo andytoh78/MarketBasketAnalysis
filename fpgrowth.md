@@ -600,7 +600,6 @@ rules_df
 > | {chocolate}   | {mineral water} | 0.3214    |
 
 ## **Summary**
----
 - Mineral water is a frequent consequent, suggesting it is commonly bought with many different items.<p>
 - The strongest association rule based on confidence is (ground beef) -> (water) with a confidence of about 0.42, meaning that when ground beef is bought, water is also likely to be bought in 42% of the cases.<p>
 - Milk, chocolate, and spaghetti also have strong associations with mineral water, with confidence levels above 32%.

@@ -451,7 +451,6 @@ plt.show()
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/bd2b95de-5d5a-4609-b735-8cdecb38e754" width="700" height="150">
 
 ## **Summary**
----
 - Mineral water is a frequent consequent, suggesting it is commonly bought with many different items.<p>
 - The strongest association rule based on confidence is (ground beef) -> (water) with a confidence of about 0.42, meaning that when ground beef is bought, water is also likely to be bought in 42% of the cases.<p>
 - Milk, chocolate, and spaghetti also have strong associations with mineral water, with confidence levels above 32%.

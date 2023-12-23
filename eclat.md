@@ -33,7 +33,7 @@ The Eclat algorithm employs a depth-first search strategy to find frequent items
 
 **${\color{yellow}\textsf{IMPLEMENTATION STEPS}}$**
 ---
-We will use the same [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) dataset to demonstrate the application of Eclat algorithm in Market Basket Analysis.
+We will use the same [Market_Basket_Optimisation](https://github.com/andytoh78/market-basket-analysis/blob/main/Market_Basket_Optimisation.csv) dataset to demonstrate the application of Eclat algorithm in Market Basket Analysis.
 
 ```python
 # Install the pyECLAT library

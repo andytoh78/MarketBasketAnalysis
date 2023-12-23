@@ -35,7 +35,7 @@ The Apriori algorithm operates by identifying frequent itemsets in a dataset and
 
 **${\color{yellow}\textsf{IMPLEMENTATION STEPS}}$**
 ---
-We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of Apriori algorithm in Market Basket Analysis
+We will use [Market_Basket_Optimisation](https://github.com/andytoh78/market-basket-analysis/blob/main/Market_Basket_Optimisation.csv) to demonstrate the application of Apriori algorithm in Market Basket Analysis
 
 ```python
 # Install machine learning extensions (mlxtend) library

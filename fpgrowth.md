@@ -32,7 +32,7 @@ The FP-growth algorithm employs a divide-and-conquer strategy to discover freque
 
 **${\color{yellow}\textsf{IMPLEMENTATION STEPS - MLXTEND}}$**
 ---
-We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of FP-growth algorithm in Market Basket Analysis
+We will use [Market_Basket_Optimisation](https://github.com/andytoh78/market-basket-analysis/blob/main/Market_Basket_Optimisation.csv) to demonstrate the application of FP-growth algorithm in Market Basket Analysis
 
 ```python
 # Install machine learning extensions (mlxtend) library

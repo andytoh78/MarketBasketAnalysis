@@ -3,15 +3,15 @@
 
 The FP-growth (Frequent Pattern growth) algorithm is another popular algorithm for discovering frequent itemsets and association rules. It offers advantages over both Apriori and Eclat in terms of efficiency and scalability. This page aims to provide an overview of the FP-growth algorithm, its method, key parameters, advantages, limitations, and a basic implementation guide using Python.
 
-**${\color{yellow}\textsf{METHOD}}$**
+**${\color{black}\textsf{METHOD}}$**
 ---
-The FP-growth algorithm employs a divide-and-conquer strategy to discover frequent itemsets. It constructs a tree-like data structure known as the **${\color{yellow}\textsf{FP-tree (Frequent Pattern tree)}}$** from the transaction database. This tree structure compactly represents the frequent patterns and their support counts. FP-growth then **${\color{yellow}\textsf{recursively mines the tree to find frequent itemsets}}$**. Unlike Apriori, FP-growth does not generate candidate itemsets explicitly, which makes it faster and more memory-efficient, especially for large datasets. In addition, there is also a **${\color{yellow}\textsf{header table}}$**, alongside the FP-tree that stores pointers to the first occurrence of each item in the FP-tree. This speeds up the process of finding frequent itemsets.
+The FP-growth algorithm employs a divide-and-conquer strategy to discover frequent itemsets. It constructs a tree-like data structure known as the **${\color{blue}\textsf{FP-tree (Frequent Pattern tree)}}$** from the transaction database. This tree structure compactly represents the frequent patterns and their support counts. FP-growth then **${\color{blue}\textsf{recursively mines the tree to find frequent itemsets}}$**. Unlike Apriori, FP-growth does not generate candidate itemsets explicitly, which makes it faster and more memory-efficient, especially for large datasets. In addition, there is also a **${\color{blue}\textsf{header table}}$**, alongside the FP-tree that stores pointers to the first occurrence of each item in the FP-tree. This speeds up the process of finding frequent itemsets.
 
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/d1b57782-13f4-4fd0-b0e2-20957731bce5)
 
 &nbsp;
 
-**${\color{yellow}\textsf{KEY PARAMETERS}}$**
+**${\color{black}\textsf{KEY PARAMETERS}}$**
 ---
 | **Parameter**             | **Description**                                                               |
 |:--------------------------|:------------------------------------------------------------------------------|
@@ -21,7 +21,7 @@ The FP-growth algorithm employs a divide-and-conquer strategy to discover freque
 
 &nbsp;
 
-**${\color{yellow}\textsf{PROS | CONS}}$**
+**${\color{black}\textsf{PROS | CONS}}$**
 ---
 | **Pros**                                          | **Cons**                                                    |
 |:--------------------------------------------------|:------------------------------------------------------------|
@@ -30,7 +30,7 @@ The FP-growth algorithm employs a divide-and-conquer strategy to discover freque
 
 &nbsp;
 
-**${\color{yellow}\textsf{IMPLEMENTATION STEPS - MLXTEND}}$**
+**${\color{black}\textsf{IMPLEMENTATION STEPS - MLXTEND}}$**
 ---
 We will use [Market_Basket_Optimisation](https://github.com/andytoh78/market-basket-analysis/blob/main/Market_Basket_Optimisation.csv) to demonstrate the application of FP-growth algorithm in Market Basket Analysis
 
@@ -129,7 +129,7 @@ df1.head()
 ```
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/01e3cc0c-b119-4823-9edb-a6fc8d21a0df)
 
-The output of the above code snippet provides a binary representation of the transaction data. Each row represents a transaction, and each column corresponds to an item. If an item is present in a transaction, the corresponding cell value will be indicated as `True`; otherwise, it will be `False`. This **${\color{yellow}\textsf{one-hot encoded}}$** format is commonly used for various data mining tasks, including association rule mining. This is also the required format when using the FP-growth (from mlxtend) alogrithm in identifying frequent itemsets and association rules.
+The output of the above code snippet provides a binary representation of the transaction data. Each row represents a transaction, and each column corresponds to an item. If an item is present in a transaction, the corresponding cell value will be indicated as `True`; otherwise, it will be `False`. This **${\color{blue}\textsf{one-hot encoded}}$** format is commonly used for various data mining tasks, including association rule mining. This is also the required format when using the FP-growth (from mlxtend) alogrithm in identifying frequent itemsets and association rules.
 
 Before applying the FP-growth algorithm, let's first take a look at the 30 most commonly purchased items in the dataset
 
@@ -184,7 +184,7 @@ df_top_items.style.background_gradient(cmap='Blues')
 Mineral water is the most frequently purchased item, and it appears in 1788 (~24%) transactions. Several food items like eggs, spaghetti, french fries, chocolate, and green tea also have high purchase counts. We can also visualize the frequent items using bar charts, heatmaps, pie charts, tree maps, word cloud to better understand their distribution within the dataset.
 
 
-### **${\color{lightgreen}\textsf{Bar Plot}}$**
+### **${\color{black}\textsf{Bar Plot}}$**
 ```python
 # Create the countplot to display top 30 most frequent items
 import matplotlib.pyplot as plt
@@ -205,7 +205,7 @@ plt.show()
 ```
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/64d9f897-98e6-4310-b569-8c2c85105dbf)
 
-### **${\color{lightgreen}\textsf{Word Cloud}}$**
+### **${\color{black}\textsf{Word Cloud}}$**
 A word cloud can be an engaging way to visualize frequent items where the size of each item's name is proportional to its frequency. This can be useful for a quick view and identification of the most common items, although it is less precise in terms of quantification.
 ```python
 # Create the word cloud to visualize frequent items
@@ -226,7 +226,7 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/83be14e4-893d-42c8-932b-0aa34ea84e98" width="400" height="400">
 
-### **${\color{lightgreen}\textsf{Tree Map}}$**
+### **${\color{black}\textsf{Tree Map}}$**
 Tree maps display each item as a rectangle, with the size corresponding to the frequency of the item. This can be a visually appealing way to represent hierarchical data and show relative patterns at a glance.
 ```python
 # Create the tree map to display top 30 most frequent items
@@ -357,7 +357,7 @@ sorted_rules
 
 Customers who purchase ground beef are 41.66% likely to also purchase mineral water and this association is supported by a lift value of 1.75, which signifies that these items are frequently bought together. Similiar observations were found for some other items - milk, spaghetti, and chocolate, in association with mineral water. To visualize association rules, we can leverage the scatter plots, network graphs, heatmaps, and bar charts to understand their distribution within the dataset and their strength of association.
 
-### **${\color{lightgreen}\textsf{Scatter Plot}}$**
+### **${\color{black}\textsf{Scatter Plot}}$**
 ```python
 # Create a scatterplot to visualize the relationship between support and confidence in association rules
 fig, ax = plt.subplots(figsize=(10, 8))
@@ -381,7 +381,7 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/3c5049ca-18f4-421f-b93c-fb522560fb5b" width="600" height="400">
 
-### **${\color{lightgreen}\textsf{Network Graph}}$**
+### **${\color{black}\textsf{Network Graph}}$**
 We can also visualize how items are associated with one another using a network graph, which represent items as nodes and the association rules as edges and colour intensity. 
 ```python
 # Create a network graph to visualize the characteristics of the association rules
@@ -429,7 +429,7 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/a4d6dc6f-a022-437e-87a3-c6104a843c29" width="650" height="400">
 
-### **${\color{lightgreen}\textsf{Heat Maps}}$**
+### **${\color{black}\textsf{Heat Maps}}$**
 ```python
 # Create a heatmap to visualize the relationships between the antecedents and consequents
 # Convert frozensets to strings and remove 'frozenset' from the representation
@@ -449,7 +449,7 @@ plt.show()
 
 &nbsp;
 
-**${\color{yellow}\textsf{IMPLEMENTATION STEPS - FPGROWTH PY}}$**
+**${\color{black}\textsf{IMPLEMENTATION STEPS - FPGROWTH PY}}$**
 ---
 We will use [Market_Basket_Optimisation](https://github.com/username/repository/blob/branch/path/to/Market_Basket_Optimisation.csv) to demonstrate the application of FP-growth algorithm in Market Basket Analysis
 

@@ -3,18 +3,18 @@
 
 The Apriori algorithm,  introduced by R. Agrawal and R. Srikant in 1994, is a classic algorithm in data mining used for mining frequent itemsets and discovering association rules in a database. This page aims to provide an overview of the Apriori algorithm, its method, key parameters, advantages, limitations, and a basic implementation guide using Python.
 
-**${\color{yellow}\textsf{METHOD}}$**
+**${\color{black}\textsf{METHOD}}$**
 ---
 The Apriori algorithm operates by identifying frequent itemsets in a dataset and then extending them to larger itemsets, provided they appear sufficiently frequently in the database. It explores the itemset space in a breadth-first manner. Initially, it identifies frequent itemsets of size 1, then uses these to generate candidate itemsets of size 2, and so on, progressively increasing the size of itemsets and checking their support.
 
 >[!Note]
->A key principle of Apriori is that **${\color{yellow}\textsf{a subset of a frequent itemset must also be frequent}}$**. For instance, if the itemset {A, B, C} is frequent, it implies that all of its subsets, such as {A, B}, {A, C}, {B, C}, {A}, {B}, and {C}, must also be frequent. This is because any transaction containing {A, B, C} also contains all its subsets. This principle efficiently reduces the number of support calculations needed and speeds up the discovery of association rules in large datasets.
+>A key principle of Apriori is that **${\color{blue}\textsf{a subset of a frequent itemset must also be frequent}}$**. For instance, if the itemset {A, B, C} is frequent, it implies that all of its subsets, such as {A, B}, {A, C}, {B, C}, {A}, {B}, and {C}, must also be frequent. This is because any transaction containing {A, B, C} also contains all its subsets. This principle efficiently reduces the number of support calculations needed and speeds up the discovery of association rules in large datasets.
 
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/4cb58796-2919-4ff9-902d-a5f82857f301)
 
 &nbsp;
 
-**${\color{yellow}\textsf{KEY PARAMETERS}}$**
+**${\color{black}\textsf{KEY PARAMETERS}}$**
 ---
 | **Parameter**             | **Description**                                                               |
 |:--------------------------|:------------------------------------------------------------------------------|
@@ -24,7 +24,7 @@ The Apriori algorithm operates by identifying frequent itemsets in a dataset and
 
 &nbsp;
 
-**${\color{yellow}\textsf{PROS | CONS}}$**
+**${\color{black}\textsf{PROS | CONS}}$**
 ---
 | **Pros**                                          | **Cons**                                                    |
 |:--------------------------------------------------|:------------------------------------------------------------|
@@ -33,7 +33,7 @@ The Apriori algorithm operates by identifying frequent itemsets in a dataset and
 
 &nbsp;
 
-**${\color{yellow}\textsf{IMPLEMENTATION STEPS}}$**
+**${\color{black}\textsf{IMPLEMENTATION STEPS}}$**
 ---
 We will use [Market_Basket_Optimisation](https://github.com/andytoh78/market-basket-analysis/blob/main/Market_Basket_Optimisation.csv) to demonstrate the application of Apriori algorithm in Market Basket Analysis
 
@@ -132,7 +132,7 @@ df1.head()
 ```
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/01e3cc0c-b119-4823-9edb-a6fc8d21a0df)
 
-The output of the above code snippet provides a binary representation of the transaction data. Each row represents a transaction, and each column corresponds to an item. If an item is present in a transaction, the corresponding cell value will be indicated as `True`; otherwise, it will be `False`. This **${\color{yellow}\textsf{one-hot encoded}}$** format is commonly used for various data mining tasks, including association rule mining. This is also the required format when using the Apriori alogrithm in identifying frequent itemsets and association rules.
+The output of the above code snippet provides a binary representation of the transaction data. Each row represents a transaction, and each column corresponds to an item. If an item is present in a transaction, the corresponding cell value will be indicated as `True`; otherwise, it will be `False`. This **${\color{blue}\textsf{one-hot encoded}}$** format is commonly used for various data mining tasks, including association rule mining. This is also the required format when using the Apriori alogrithm in identifying frequent itemsets and association rules.
 
 Before applying the Apriori algorithm, let's first take a look at the 30 most commonly purchased items in the dataset
 

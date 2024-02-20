@@ -3,15 +3,15 @@
 
 The Eclat (Equivalence Class Transformation) algorithm is another classic data mining algorithm used for mining frequent itemsets and discovering association rules in a database. It differs from the Apriori algorithm in terms of its methodology and efficiency. This page aims to provide an overview of the Eclat algorithm, its method, key parameters, advantages, limitations, and a basic implementation guide using Python.
 
-**${\color{yellow}\textsf{METHOD}}$**
+**${\color{black}\textsf{METHOD}}$**
 ---
-The Eclat algorithm employs a depth-first search strategy to find frequent itemsets in a dataset. Instead of generating candidate itemsets as in Apriori, Eclat uses a **${\color{yellow}\textsf{vertical data format to represent transactions}}$**. It maintains an index structure, often called the **${\color{yellow}\textsf{tidset}}$**, which records the transactions in which each item appears. Eclat then recursively combines frequent itemsets by **${\color{yellow}\textsf{intersecting their tidsets}}$**. This approach scans the database only once, eliminates the need for candidate generation, making it efficient for mining frequent itemsets in large databases.
+The Eclat algorithm employs a depth-first search strategy to find frequent itemsets in a dataset. Instead of generating candidate itemsets as in Apriori, Eclat uses a **${\color{blue}\textsf{vertical data format to represent transactions}}$**. It maintains an index structure, often called the **${\color{blue}\textsf{tidset}}$**, which records the transactions in which each item appears. Eclat then recursively combines frequent itemsets by **${\color{blue}\textsf{intersecting their tidsets}}$**. This approach scans the database only once, eliminates the need for candidate generation, making it efficient for mining frequent itemsets in large databases.
 
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/8be5e469-df60-4b25-84e4-8d00f583fb31)
 
 &nbsp;
 
-**${\color{yellow}\textsf{KEY PARAMETERS}}$**
+**${\color{black}\textsf{KEY PARAMETERS}}$**
 ---
 | **Parameter**             | **Description**                                                               |
 |:--------------------------|:------------------------------------------------------------------------------|
@@ -21,7 +21,7 @@ The Eclat algorithm employs a depth-first search strategy to find frequent items
 
 &nbsp;
 
-**${\color{yellow}\textsf{PROS | CONS}}$**
+**${\color{black}\textsf{PROS | CONS}}$**
 ---
 | **Pros**                                          | **Cons**                                                    |
 |:--------------------------------------------------|:------------------------------------------------------------|
@@ -31,7 +31,7 @@ The Eclat algorithm employs a depth-first search strategy to find frequent items
 
 &nbsp;
 
-**${\color{yellow}\textsf{IMPLEMENTATION STEPS}}$**
+**${\color{black}\textsf{IMPLEMENTATION STEPS}}$**
 ---
 We will use the same [Market_Basket_Optimisation](https://github.com/andytoh78/market-basket-analysis/blob/main/Market_Basket_Optimisation.csv) dataset to demonstrate the application of Eclat algorithm in Market Basket Analysis.
 
@@ -161,7 +161,7 @@ df_top_items.style.background_gradient(cmap='Blues')
 
 Mineral water is the most frequently purchased item, and it appears in 1788 (~24%) transactions. Several food items like eggs, spaghetti, french fries, chocolate, and green tea also have high purchase counts. We can also visualize the frequent items using bar charts, heatmaps, pie charts, tree maps, word cloud to better understand their distribution within the dataset.
 
-### **${\color{lightgreen}\textsf{Bar Plot}}$**
+### **${\color{black}\textsf{Bar Plot}}$**
 ```python
 # Create the countplot to display top 30 most frequent items
 import matplotlib.pyplot as plt
@@ -182,7 +182,7 @@ plt.show()
 ```
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/64d9f897-98e6-4310-b569-8c2c85105dbf)
 
-### **${\color{lightgreen}\textsf{Word Cloud}}$**
+### **${\color{black}\textsf{Word Cloud}}$**
 A word cloud can be an engaging way to visualize frequent items where the size of each item's name is proportional to its frequency. This can be useful for a quick view and identification of the most common items, although it is less precise in terms of quantification.
 ```python
 # Create the word cloud to visualize frequent items
@@ -203,7 +203,7 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/83be14e4-893d-42c8-932b-0aa34ea84e98" width="400" height="400">
 
-### **${\color{lightgreen}\textsf{Tree Map}}$**
+### **${\color{black}\textsf{Tree Map}}$**
 Tree maps display each item as a rectangle, with the size corresponding to the frequency of the item. This can be a visually appealing way to represent hierarchical data and show relative patterns at a glance.
 ```python
 # Create the tree map to display top 30 most frequent items

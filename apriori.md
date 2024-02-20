@@ -187,7 +187,7 @@ df_top_items.style.background_gradient(cmap='Blues')
 Mineral water is the most frequently purchased item, and it appears in 1788 (~24%) transactions. Several food items like eggs, spaghetti, french fries, chocolate, and green tea also have high purchase counts. We can also visualize the frequent items using bar charts, heatmaps, pie charts, tree maps, word cloud to better understand their distribution within the dataset.
 
 
-### **${\color{lightgreen}\textsf{Bar Plot}}$**
+### **${\color{black}\textsf{Bar Plot}}$**
 ```python
 # Create the countplot to display top 30 most frequent items
 import matplotlib.pyplot as plt
@@ -208,7 +208,7 @@ plt.show()
 ```
 ![image](https://github.com/andytoh78/market-basket-analysis/assets/139482827/64d9f897-98e6-4310-b569-8c2c85105dbf)
 
-### **${\color{lightgreen}\textsf{Word Cloud}}$**
+### **${\color{black}\textsf{Word Cloud}}$**
 A word cloud can be an engaging way to visualize frequent items where the size of each item's name is proportional to its frequency. This can be useful for a quick view and identification of the most common items, although it is less precise in terms of quantification.
 ```python
 # Create the word cloud to visualize frequent items
@@ -229,7 +229,7 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/83be14e4-893d-42c8-932b-0aa34ea84e98" width="400" height="400">
 
-### **${\color{lightgreen}\textsf{Tree Map}}$**
+### **${\color{black}\textsf{Tree Map}}$**
 Tree maps display each item as a rectangle, with the size corresponding to the frequency of the item. This can be a visually appealing way to represent hierarchical data and show relative patterns at a glance.
 ```python
 # Create the tree map to display top 30 most frequent items
@@ -360,7 +360,7 @@ sorted_rules
 
 Customers who purchase ground beef are 41.66% likely to also purchase mineral water and this association is supported by a lift value of 1.75, which signifies that these items are frequently bought together. Similiar observations were found for some other items - milk, spaghetti, and chocolate, in association with mineral water. To visualize association rules, we can leverage the scatter plots, network graphs, heatmaps, and bar charts to understand their distribution within the dataset and their strength of association.
 
-### **${\color{lightgreen}\textsf{Scatter Plot}}$**
+### **${\color{black}\textsf{Scatter Plot}}$**
 ```python
 # Create a scatterplot to visualize the relationship between support and confidence in association rules
 fig, ax = plt.subplots(figsize=(10, 8))
@@ -384,7 +384,7 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/3c5049ca-18f4-421f-b93c-fb522560fb5b" width="600" height="400">
 
-### **${\color{lightgreen}\textsf{Network Graph}}$**
+### **${\color{black}\textsf{Network Graph}}$**
 We can also visualize how items are associated with one another using a network graph, which represent items as nodes and the association rules as edges and colour intensity. 
 ```python
 # Create a network graph to visualize the characteristics of the association rules
@@ -432,7 +432,7 @@ plt.show()
 ```
 <img src="https://github.com/andytoh78/market-basket-analysis/assets/139482827/a4d6dc6f-a022-437e-87a3-c6104a843c29" width="650" height="400">
 
-### **${\color{lightgreen}\textsf{Heat Maps}}$**
+### **${\color{black}\textsf{Heat Maps}}$**
 ```python
 # Create a heatmap to visualize the relationships between the antecedents and consequents
 # Convert frozensets to strings and remove 'frozenset' from the representation
